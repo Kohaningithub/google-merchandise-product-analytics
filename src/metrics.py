@@ -34,7 +34,7 @@ METRICS = [
         numerator="Deduplicated observed transaction USD revenue",
         denominator="Distinct valid active users",
         sql="SAFE_DIVIDE(revenue_usd,users)",
-        exclusions="Invalid transaction IDs; missing USD not imputed",
+        exclusions="Invalid or conflicting transaction IDs; missing USD not imputed",
         caveat="Revenue includes transactions without valid users. Withhold decision use if missing revenue or identity coverage is material.",
     ),
     dict(
@@ -43,7 +43,7 @@ METRICS = [
         numerator="Observed USD revenue",
         denominator="Valid distinct transactions",
         sql="SAFE_DIVIDE(revenue_usd,transactions)",
-        exclusions="Invalid IDs",
+        exclusions="Invalid or conflicting transaction IDs",
         caveat="Incomplete if any transaction revenue is missing; gross purchase value, not net refunds.",
     ),
     dict(

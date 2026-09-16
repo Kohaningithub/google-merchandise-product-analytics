@@ -13,3 +13,5 @@ site/template.html.bak
 
 dist/
 *.log
+
+dbt/.user.yml

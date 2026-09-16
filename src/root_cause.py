@@ -44,6 +44,27 @@ def investigate(rows, alerts):
     day = pd.Timestamp(alert["date"])
     # Compare with four matched weekdays; rates use pooled denominators.
     matched = [day - pd.Timedelta(days=7 * i) for i in range(1, 5)]
+    partition = frame[
+        frame.dimension == ("device" if "device" in set(frame.dimension) else frame.dimension.iloc[0])
+    ]
+    current = partition[partition.metric_date == day]
+    baseline = partition[partition.metric_date.isin(matched)]
+    recent = partition[partition.metric_date.isin(matched[:2])]
+
+    def rate_summary(data):
+        sessions = int(data.sessions.sum())
+        purchases = int(data.purchase_sessions.sum())
+        return dict(
+            sessions=sessions,
+            purchase_sessions=purchases,
+            conversion=purchases / sessions if sessions else None,
+        )
+
+    overall = dict(
+        current=rate_summary(current),
+        baseline=rate_summary(baseline),
+        recent_weekday_sensitivity=rate_summary(recent),
+    )
     cases = []
     for dimension in frame.dimension.unique():
         subset = frame[frame.dimension == dimension]
@@ -83,5 +104,6 @@ def investigate(rows, alerts):
         trigger_metric=alert["metric"],
         date=alert["date"],
         baseline_dates=[d.date().isoformat() for d in matched],
+        overall=overall,
         cases=cases,
     )

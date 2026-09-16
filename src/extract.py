@@ -86,6 +86,10 @@ class Warehouse:
         self.schema()
         self.model("stg_events")
         save("audit", self.query(render("audit", self.project, self.dataset), "audit"))
+        save(
+            "transaction_diagnosis",
+            self.query(render("transaction_diagnosis", self.project, self.dataset), "transaction_diagnosis"),
+        )
 
     def models(self):
         for name in MODELS[1:]:

@@ -1,6 +1,6 @@
 # Data and metric contracts
 
-Source: `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`, bounded to `20201101`–`20210131`. The published schema has been reviewed; actual historical schema, coverage, counts and query bytes require authenticated execution. `audit` saves the actual first-table schema and checks all scanned rows. Do not mistake documentation review for a live query.
+Source: `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`, bounded to `20201101`–`20210131`. The full source window has been queried successfully. `data/published/inputs/schema.json` preserves the actual historical schema, and audit/quality/query metadata accompany the verified results.
 
 ## Fields used
 
@@ -16,9 +16,9 @@ Source: `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`, bounded
 | `event_params.currency`, `value` | Audit context. Local values are not summed across currencies or substituted for USD. |
 | `device.category`, `geo.country` | First session event for session segments; first user event for cohorts. Nulls retained as unknown. |
 | `traffic_source.source`, `medium` | User-acquisition fields from the export. Not session attribution; no attribution or marketing-effect claims. |
-| `ecommerce.transaction_id` | Global valid-transaction key after excluding known placeholders. Earliest row wins; conflicting users or revenues stop publication. |
+| `ecommerce.transaction_id` | Global valid-transaction key after excluding known placeholders. Conflicting users or revenues quarantine the entire ID; earliest row wins only for consistent IDs. |
 | `ecommerce.purchase_revenue_in_usd` | Currency-converted gross purchase value. Missing remains missing; negatives stop publication. |
-| `ecommerce.refund_value_in_usd` | Coverage audit only. Refund completeness is unverified; net revenue is not claimed. |
+| `ecommerce.refund_value_in_usd` | Coverage audit only. No refund values were observed; refund completeness cannot be inferred; net revenue is not claimed. |
 | `items.item_id`, `item_name`, `item_category`, `quantity`, `item_revenue_in_usd` | Separate transaction-item category audit. Never fan out session denominators through item arrays. |
 
 Repeated event parameters use MAX for deterministic extraction and produce a duplicate-key warning. Event fingerprints describe suspicious repeats, not a source-supplied primary key; source events are preserved because duplicate-looking rows may be legitimate.
@@ -26,7 +26,7 @@ Repeated event parameters use MAX for deterministic extraction and produce a dup
 ## Model grains
 
 * `stg_events`: one source row; scan only the fixed suffix range.
-* `fct_purchases`: one valid global transaction ID; earliest observed row. Unlinked transactions remain included in transaction-date revenue and are excluded from session-linked revenue.
+* `fct_purchases`: one accepted global transaction ID; ambiguous IDs excluded, earliest consistent row retained. Unlinked transactions remain included in transaction-date revenue and are excluded from session-linked revenue.
 * `int_sessions`: one user/session pair; session date is earliest timestamp's property date. Sessions can cross midnight. Revenue reconciles only to purchases linked to valid sessions.
 * `int_users`: one valid pseudonymous user; first observation across **all** events, including events without valid session IDs. Session count can be zero.
 * Daily mart: one calendar date; user activity is event-date based; sessions are start-date based; transaction revenue is purchase-date based. These dates are deliberately not interchangeable.

@@ -48,4 +48,9 @@ def validate_exports():
 
 def provenance():
     files = sorted((ROOT / "data/processed").glob("*.json"))
-    return {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
+    return {p.name: file_digest(p) for p in files}
+
+
+def file_digest(path):
+    """UTF-8/LF content hashes survive Git checkout on Windows and Linux."""
+    return hashlib.sha256(path.read_text(encoding="utf-8").encode("utf-8")).hexdigest()

@@ -1,0 +1,149 @@
+[
+  {
+    "category": "Lifestyle",
+    "transactions": 454,
+    "units": 670,
+    "observed_item_revenue_usd": 11196.0,
+    "revenue_rank": 9
+  },
+  {
+    "category": "Fun",
+    "transactions": 30,
+    "units": 127,
+    "observed_item_revenue_usd": 213.0,
+    "revenue_rank": 20
+  },
+  {
+    "category": "Shop by Brand",
+    "transactions": 660,
+    "units": 1069,
+    "observed_item_revenue_usd": 14601.0,
+    "revenue_rank": 7
+  },
+  {
+    "category": "Notebooks & Journals",
+    "transactions": 33,
+    "units": 100,
+    "observed_item_revenue_usd": 628.0,
+    "revenue_rank": 18
+  },
+  {
+    "category": "Campus Collection",
+    "transactions": 702,
+    "units": 1836,
+    "observed_item_revenue_usd": 16463.0,
+    "revenue_rank": 4
+  },
+  {
+    "category": "Google",
+    "transactions": 226,
+    "units": 634,
+    "observed_item_revenue_usd": 2917.0,
+    "revenue_rank": 13
+  },
+  {
+    "category": "Writing Instruments",
+    "transactions": 122,
+    "units": 389,
+    "observed_item_revenue_usd": 778.0,
+    "revenue_rank": 17
+  },
+  {
+    "category": "New",
+    "transactions": 900,
+    "units": 1816,
+    "observed_item_revenue_usd": 22035.0,
+    "revenue_rank": 2
+  },
+  {
+    "category": "Electronics Accessories",
+    "transactions": 41,
+    "units": 45,
+    "observed_item_revenue_usd": 456.0,
+    "revenue_rank": 19
+  },
+  {
+    "category": "Gift Cards",
+    "transactions": 12,
+    "units": 58,
+    "observed_item_revenue_usd": 2475.0,
+    "revenue_rank": 14
+  },
+  {
+    "category": "Uncategorized Items",
+    "transactions": 388,
+    "units": 645,
+    "observed_item_revenue_usd": 14616.0,
+    "revenue_rank": 6
+  },
+  {
+    "category": "Small Goods",
+    "transactions": 149,
+    "units": 177,
+    "observed_item_revenue_usd": 1563.0,
+    "revenue_rank": 15
+  },
+  {
+    "category": "Stationery",
+    "transactions": 165,
+    "units": 595,
+    "observed_item_revenue_usd": 1334.0,
+    "revenue_rank": 16
+  },
+  {
+    "category": "Black Lives Matter",
+    "transactions": 1,
+    "units": 1,
+    "observed_item_revenue_usd": 58.0,
+    "revenue_rank": 21
+  },
+  {
+    "category": "Accessories",
+    "transactions": 757,
+    "units": 1685,
+    "observed_item_revenue_usd": 15120.0,
+    "revenue_rank": 5
+  },
+  {
+    "category": "Clearance",
+    "transactions": 461,
+    "units": 799,
+    "observed_item_revenue_usd": 10073.0,
+    "revenue_rank": 10
+  },
+  {
+    "category": "Office",
+    "transactions": 532,
+    "units": 1761,
+    "observed_item_revenue_usd": 7352.0,
+    "revenue_rank": 11
+  },
+  {
+    "category": "",
+    "transactions": 184,
+    "units": 534,
+    "observed_item_revenue_usd": 6326.0,
+    "revenue_rank": 12
+  },
+  {
+    "category": "Apparel",
+    "transactions": 2529,
+    "units": 4577,
+    "observed_item_revenue_usd": 143904.0,
+    "revenue_rank": 1
+  },
+  {
+    "category": "Bags",
+    "transactions": 523,
+    "units": 948,
+    "observed_item_revenue_usd": 21114.0,
+    "revenue_rank": 3
+  },
+  {
+    "category": "Drinkware",
+    "transactions": 550,
+    "units": 945,
+    "observed_item_revenue_usd": 13377.0,
+    "revenue_rank": 8
+  }
+]

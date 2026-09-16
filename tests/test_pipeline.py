@@ -87,9 +87,24 @@ def test_full_offline_artifact_pipeline(tmp_path, monkeypatch):
         for h in [1, 7, 14, 30]
     ]
     save("quality", [dict(test=f"check_{i}", failures=0) for i in range(12)])
+    save("transaction_diagnosis", [])
     save(
         "audit",
         [
+            dict(
+                section="overview",
+                label="all",
+                detail=json.dumps(
+                    dict(
+                        events=10000,
+                        users=1000,
+                        sessions=sum(r["sessions"] for r in daily),
+                        invalid_transaction_events=0,
+                    )
+                ),
+            )
+        ]
+        + [
             dict(section="ecommerce_coverage", label=e, detail=json.dumps(dict(events=100)))
             for e in ["view_item", "add_to_cart", "begin_checkout", "purchase"]
         ],

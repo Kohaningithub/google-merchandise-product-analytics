@@ -53,3 +53,31 @@ def test_actual_session_sql_handles_order_ties_repeats_and_missing_keys():
     assert pd.isna(records.loc["tied", "purchase_ts"])
     assert records.loc["repeated", "missing_revenue_transactions"] == 1
     assert records.events.sum() == len(events) - 1
+
+
+def test_purchase_sql_quarantines_conflicts_and_deduplicates_consistent_ids():
+    db = duckdb.connect()
+    db.execute("""CREATE TABLE stg_events (
+      transaction_id VARCHAR,event_date DATE,event_timestamp BIGINT,user_pseudo_id VARCHAR,
+      session_id VARCHAR,revenue_usd DOUBLE,currency VARCHAR,items VARCHAR,
+      event_fingerprint VARCHAR,event_name VARCHAR)""")
+    rows = [
+        ("clean", "u1", 10, 1),
+        ("clean", "u1", 10, 2),
+        ("owner_conflict", "u1", 20, 3),
+        ("owner_conflict", "u2", 20, 4),
+        ("value_conflict", "u1", 20, 5),
+        ("value_conflict", "u1", 30, 6),
+        ("<Other>", "u1", 40, 7),
+        (None, "u1", 50, 8),
+    ]
+    for transaction, user, revenue, ts in rows:
+        db.execute(
+            "INSERT INTO stg_events VALUES (?, DATE '2020-11-01', ?, ?, 'session', ?, 'USD', '[]', ?, 'purchase')",
+            [transaction, ts, user, revenue, str(ts)],
+        )
+    sql = render("fct_purchases", "p", "d").replace("`p.d.", "`")
+    result = db.execute(sqlglot.transpile(sql, read="bigquery", write="duckdb")[0]).fetchdf()
+    assert result.transaction_id.tolist() == ["clean"]
+    assert result.revenue_usd.tolist() == [10]
+    assert result.event_timestamp.tolist() == [1]

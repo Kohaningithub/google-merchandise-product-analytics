@@ -12,7 +12,7 @@ The generated report selects one proposal:
 | Cart → checkout | Clarify checkout entry and delivery-cost expectations | Does reducing ambiguity increase checkout entry? |
 | Checkout → purchase | Improve form guidance and validation messages | Does guidance help users complete checkout? |
 
-Until real data execution, no bottleneck or numerical baseline is asserted.
+The completed run selects product view to cart. See the generated report and README for the measured eligible-user baseline and power scenarios; these are design inputs, not treatment outcomes.
 
 ## Protocol
 

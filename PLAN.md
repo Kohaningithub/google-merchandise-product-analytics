@@ -1,11 +1,13 @@
-# Implementation plan and status
+# Completed historical execution
 
-1. Inspect the existing portfolio repository and preserve its work. **Done.**
-2. Verify source documentation, live credentials, schema and audit. **Documentation verified; live query blocked by missing ADC and query project.** The actual authentication library was checked and returned DefaultCredentialsError.
-3. Build bounded BigQuery audit, analytical models and dbt validation. **Implemented; locally parsed, with session relational logic tested through DuckDB translation. Live BigQuery execution pending.**
-4. Build funnel/retention outputs, monitoring, contribution diagnosis and prospective experimentation. **Implemented and tested using isolated synthetic fixtures only. No fixture is a published finding.**
-5. Generate a polished static site from aggregate artifacts. **Done, with explicit pending-data state. Desktop/mobile browser reviewed; screenshot included.**
-6. Test and review correctness, denominator boundaries and source limitations. **Offline tests and lint pass. See docs/review.md.**
-7. Deploy GitHub Pages. The original private repository's plan rejected Pages. **The user authorized a separate public project repository**, keeping the existing portfolio private. Deployment uses this standalone repository.
+The existing platform has now run end to end against the real GA4 public dataset for 20201101 through 20210131.
 
-Remaining analytical work requires one-time Google authentication and a query project, then `python -m src.pipeline all`. This will execute actual schema/audit checks, materialize models, fail on invalid data, generate observations, size the prospective experiment, and publish real aggregate charts. Never claim this step has run before it has.
+- Existing CLI credentials used without copying secrets.
+- All existing SQL models executed on BigQuery.
+- Conflicting transaction-ID assumption corrected through explicit quarantine and reconciliation.
+- Warehouse validation passed; real aggregates and query metadata preserved.
+- Funnel, retention, KPI, monitoring, decomposition and prospective power artifacts generated.
+- Executive findings generated from the report; source snapshots and number-reconciliation tests added.
+- README, methodological notes and static site updated for verified evidence.
+
+No new modeling scope, synthetic observed results, product incident claims, or experimental treatment outcomes were introduced. The experiment remains prospective. GitHub Actions validates and deploys the updated case study on push.

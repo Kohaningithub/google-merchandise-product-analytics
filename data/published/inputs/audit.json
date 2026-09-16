@@ -1,0 +1,752 @@
+[
+  {
+    "section": "event_names",
+    "label": "user_engagement",
+    "detail": "{\"events\":1058721,\"users\":213004}"
+  },
+  {
+    "section": "event_names",
+    "label": "view_promotion",
+    "detail": "{\"events\":190104,\"users\":102443}"
+  },
+  {
+    "section": "event_names",
+    "label": "view_item",
+    "detail": "{\"events\":386068,\"users\":61252}"
+  },
+  {
+    "section": "event_names",
+    "label": "scroll",
+    "detail": "{\"events\":493072,\"users\":138098}"
+  },
+  {
+    "section": "event_names",
+    "label": "page_view",
+    "detail": "{\"events\":1350428,\"users\":269792}"
+  },
+  {
+    "section": "event_names",
+    "label": "session_start",
+    "detail": "{\"events\":354970,\"users\":267116}"
+  },
+  {
+    "section": "event_names",
+    "label": "begin_checkout",
+    "detail": "{\"events\":38757,\"users\":9715}"
+  },
+  {
+    "section": "event_names",
+    "label": "view_search_results",
+    "detail": "{\"events\":26172,\"users\":14449}"
+  },
+  {
+    "section": "event_names",
+    "label": "select_item",
+    "detail": "{\"events\":31007,\"users\":13180}"
+  },
+  {
+    "section": "event_names",
+    "label": "add_to_cart",
+    "detail": "{\"events\":58543,\"users\":12545}"
+  },
+  {
+    "section": "event_names",
+    "label": "select_promotion",
+    "detail": "{\"events\":9450,\"users\":8164}"
+  },
+  {
+    "section": "event_names",
+    "label": "purchase",
+    "detail": "{\"events\":5692,\"users\":4419}"
+  },
+  {
+    "section": "event_names",
+    "label": "add_shipping_info",
+    "detail": "{\"events\":19722,\"users\":9714}"
+  },
+  {
+    "section": "event_names",
+    "label": "add_payment_info",
+    "detail": "{\"events\":13899,\"users\":5751}"
+  },
+  {
+    "section": "event_names",
+    "label": "click",
+    "detail": "{\"events\":1446,\"users\":1010}"
+  },
+  {
+    "section": "event_names",
+    "label": "first_visit",
+    "detail": "{\"events\":257462,\"users\":257314}"
+  },
+  {
+    "section": "event_names",
+    "label": "view_item_list",
+    "detail": "{\"events\":71,\"users\":44}"
+  },
+  {
+    "section": "dimensions",
+    "label": "device",
+    "detail": "{\"value\":\"mobile\",\"events\":1704069}"
+  },
+  {
+    "section": "dimensions",
+    "label": "source",
+    "detail": "{\"value\":\"(data deleted)\",\"events\":308695}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"United Kingdom\",\"events\":133383}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Israel\",\"events\":19316}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Netherlands\",\"events\":50303}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Germany\",\"events\":71673}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Italy\",\"events\":61258}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Spain\",\"events\":81713}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Indonesia\",\"events\":35608}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Czechia\",\"events\":11194}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Malaysia\",\"events\":19656}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Brazil\",\"events\":42380}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Palestine\",\"events\":1881}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Iceland\",\"events\":1511}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"South Africa\",\"events\":6564}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Macao\",\"events\":811}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Uruguay\",\"events\":2521}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Belgium\",\"events\":17056}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Philippines\",\"events\":20533}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Switzerland\",\"events\":21597}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Honduras\",\"events\":556}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Slovenia\",\"events\":3476}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Venezuela\",\"events\":1577}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Romania\",\"events\":9714}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Hungary\",\"events\":5877}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Guatemala\",\"events\":2117}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Nigeria\",\"events\":5534}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Armenia\",\"events\":1898}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Cambodia\",\"events\":1534}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Bolivia\",\"events\":893}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Georgia\",\"events\":1382}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Azerbaijan\",\"events\":1251}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Ghana\",\"events\":682}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Estonia\",\"events\":933}"
+  },
+  {
+    "section": "dimensions",
+    "label": "source",
+    "detail": "{\"value\":\"shop.googlemerchandisestore.com\",\"events\":365774}"
+  },
+  {
+    "section": "transaction_duplicates",
+    "label": "all",
+    "detail": "{\"repeated_ids\":328,\"events\":1567,\"conflicting_owner_ids\":17,\"conflicting_revenue_ids\":17}"
+  },
+  {
+    "section": "ecommerce_coverage",
+    "label": "page_view",
+    "detail": "{\"events\":1350428}"
+  },
+  {
+    "section": "ecommerce_coverage",
+    "label": "session_start",
+    "detail": "{\"events\":354970}"
+  },
+  {
+    "section": "ecommerce_coverage",
+    "label": "begin_checkout",
+    "detail": "{\"events\":38757}"
+  },
+  {
+    "section": "ecommerce_coverage",
+    "label": "purchase",
+    "detail": "{\"events\":5692}"
+  },
+  {
+    "section": "overview",
+    "label": "all",
+    "detail": "{\"events\":4295584,\"min_date\":\"2020-11-01\",\"max_date\":\"2021-01-31\",\"users\":270154,\"sessions\":360129,\"purchase_events\":5692,\"missing_session_events\":0,\"invalid_user_events\":0,\"repeated_fingerprints\":0,\"events_with_duplicate_parameter_keys\":0,\"purchases_missing_usd\":0,\"invalid_transaction_events\":906,\"negative_revenue_events\":0,\"refund_values_present\":0}"
+  },
+  {
+    "section": "dimensions",
+    "label": "medium",
+    "detail": "{\"value\":\"(data deleted)\",\"events\":313917}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Pakistan\",\"events\":16977}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"France\",\"events\":82514}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Turkey\",\"events\":45168}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Canada\",\"events\":324261}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Taiwan\",\"events\":72484}"
+  },
+  {
+    "section": "dimensions",
+    "label": "source",
+    "detail": "{\"value\":\"<Other>\",\"events\":1131013}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Greece\",\"events\":17150}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Ireland\",\"events\":26666}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Vietnam\",\"events\":17669}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"China\",\"events\":76159}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Singapore\",\"events\":56869}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"El Salvador\",\"events\":2056}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Mexico\",\"events\":38655}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Thailand\",\"events\":18610}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"(not set)\",\"events\":32208}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Hong Kong\",\"events\":26062}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Bangladesh\",\"events\":8049}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"United Arab Emirates\",\"events\":12249}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Croatia\",\"events\":5173}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Tunisia\",\"events\":2617}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Qatar\",\"events\":1822}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Sri Lanka\",\"events\":7761}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Denmark\",\"events\":12948}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Dominican Republic\",\"events\":3476}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Egypt\",\"events\":8481}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Chile\",\"events\":7665}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"North Macedonia\",\"events\":1695}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Kazakhstan\",\"events\":1966}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Luxembourg\",\"events\":1020}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Iraq\",\"events\":3440}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Algeria\",\"events\":3464}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Lebanon\",\"events\":1618}"
+  },
+  {
+    "section": "dimensions",
+    "label": "source",
+    "detail": "{\"value\":\"(direct)\",\"events\":989684}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Bosnia & Herzegovina\",\"events\":800}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Albania\",\"events\":1084}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Puerto Rico\",\"events\":2757}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Paraguay\",\"events\":797}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Trinidad & Tobago\",\"events\":555}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Oman\",\"events\":706}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Latvia\",\"events\":1690}"
+  },
+  {
+    "section": "dimensions",
+    "label": "medium",
+    "detail": "{\"value\":\"organic\",\"events\":1439399}"
+  },
+  {
+    "section": "dimensions",
+    "label": "medium",
+    "detail": "{\"value\":\"referral\",\"events\":778087}"
+  },
+  {
+    "section": "ecommerce_coverage",
+    "label": "add_shipping_info",
+    "detail": "{\"events\":19722}"
+  },
+  {
+    "section": "ecommerce_coverage",
+    "label": "add_payment_info",
+    "detail": "{\"events\":13899}"
+  },
+  {
+    "section": "ecommerce_coverage",
+    "label": "add_to_cart",
+    "detail": "{\"events\":58543}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Japan\",\"events\":56676}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"India\",\"events\":391859}"
+  },
+  {
+    "section": "dimensions",
+    "label": "device",
+    "detail": "{\"value\":\"desktop\",\"events\":2498330}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"United States\",\"events\":1910483}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Australia\",\"events\":39493}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Poland\",\"events\":37380}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Peru\",\"events\":20900}"
+  },
+  {
+    "section": "dimensions",
+    "label": "device",
+    "detail": "{\"value\":\"tablet\",\"events\":93185}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Argentina\",\"events\":11457}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"South Korea\",\"events\":51584}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Portugal\",\"events\":17184}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Mongolia\",\"events\":1184}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Finland\",\"events\":8064}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Saudi Arabia\",\"events\":9026}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Morocco\",\"events\":6339}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Bahrain\",\"events\":1073}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Sweden\",\"events\":23267}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Colombia\",\"events\":19216}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Russia\",\"events\":28709}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Ecuador\",\"events\":3224}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Austria\",\"events\":12189}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Slovakia\",\"events\":4507}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Ukraine\",\"events\":15892}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Cyprus\",\"events\":1337}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Bulgaria\",\"events\":4183}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Norway\",\"events\":7206}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Lithuania\",\"events\":3099}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"New Zealand\",\"events\":6440}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Kenya\",\"events\":2407}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Bahamas\",\"events\":987}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Kuwait\",\"events\":3277}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Serbia\",\"events\":3688}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Kosovo\",\"events\":593}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Nepal\",\"events\":1627}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Belarus\",\"events\":1565}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Malta\",\"events\":751}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Jordan\",\"events\":1760}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Myanmar (Burma)\",\"events\":1225}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Jamaica\",\"events\":1064}"
+  },
+  {
+    "section": "dimensions",
+    "label": "medium",
+    "detail": "{\"value\":\"(none)\",\"events\":989684}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Panama\",\"events\":1061}"
+  },
+  {
+    "section": "dimensions",
+    "label": "country",
+    "detail": "{\"value\":\"Costa Rica\",\"events\":1885}"
+  },
+  {
+    "section": "dimensions",
+    "label": "medium",
+    "detail": "{\"value\":\"<Other>\",\"events\":597482}"
+  },
+  {
+    "section": "dimensions",
+    "label": "source",
+    "detail": "{\"value\":\"google\",\"events\":1500418}"
+  },
+  {
+    "section": "dimensions",
+    "label": "medium",
+    "detail": "{\"value\":\"cpc\",\"events\":177015}"
+  },
+  {
+    "section": "ecommerce_coverage",
+    "label": "view_item",
+    "detail": "{\"events\":386068}"
+  }
+]

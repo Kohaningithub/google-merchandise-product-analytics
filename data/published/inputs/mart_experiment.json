@@ -1,0 +1,1532 @@
+[
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-04",
+    "eligible_users": 911,
+    "converted_users": 255
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-14",
+    "eligible_users": 492,
+    "converted_users": 0
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-12",
+    "eligible_users": 770,
+    "converted_users": 0
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-25",
+    "eligible_users": 66,
+    "converted_users": 22
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-16",
+    "eligible_users": 446,
+    "converted_users": 79
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-11-27",
+    "eligible_users": 298,
+    "converted_users": 124
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-19",
+    "eligible_users": 662,
+    "converted_users": 106
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-26",
+    "eligible_users": 74,
+    "converted_users": 39
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-11-29",
+    "eligible_users": 249,
+    "converted_users": 73
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-20",
+    "eligible_users": 108,
+    "converted_users": 31
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-04",
+    "eligible_users": 25,
+    "converted_users": 12
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-29",
+    "eligible_users": 411,
+    "converted_users": 80
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-04",
+    "eligible_users": 85,
+    "converted_users": 11
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-01",
+    "eligible_users": 266,
+    "converted_users": 51
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-06",
+    "eligible_users": 721,
+    "converted_users": 0
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-25",
+    "eligible_users": 760,
+    "converted_users": 95
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-03",
+    "eligible_users": 200,
+    "converted_users": 67
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-24",
+    "eligible_users": 534,
+    "converted_users": 76
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-11-20",
+    "eligible_users": 3,
+    "converted_users": 1
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-22",
+    "eligible_users": 558,
+    "converted_users": 0
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-08",
+    "eligible_users": 1083,
+    "converted_users": 299
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-11-17",
+    "eligible_users": 239,
+    "converted_users": 99
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-13",
+    "eligible_users": 121,
+    "converted_users": 50
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-18",
+    "eligible_users": 251,
+    "converted_users": 77
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-16",
+    "eligible_users": 105,
+    "converted_users": 32
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-09",
+    "eligible_users": 211,
+    "converted_users": 101
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-07",
+    "eligible_users": 326,
+    "converted_users": 105
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-25",
+    "eligible_users": 191,
+    "converted_users": 64
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-06",
+    "eligible_users": 143,
+    "converted_users": 32
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-13",
+    "eligible_users": 168,
+    "converted_users": 55
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-21",
+    "eligible_users": 167,
+    "converted_users": 47
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-21",
+    "eligible_users": 109,
+    "converted_users": 23
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-17",
+    "eligible_users": 915,
+    "converted_users": 212
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-25",
+    "eligible_users": 298,
+    "converted_users": 51
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-02",
+    "eligible_users": 175,
+    "converted_users": 61
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-21",
+    "eligible_users": 92,
+    "converted_users": 40
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-24",
+    "eligible_users": 379,
+    "converted_users": 65
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-29",
+    "eligible_users": 594,
+    "converted_users": 210
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-29",
+    "eligible_users": 116,
+    "converted_users": 41
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-01",
+    "eligible_users": 91,
+    "converted_users": 11
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-28",
+    "eligible_users": 133,
+    "converted_users": 35
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-04",
+    "eligible_users": 109,
+    "converted_users": 22
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-17",
+    "eligible_users": 395,
+    "converted_users": 70
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-04",
+    "eligible_users": 431,
+    "converted_users": 71
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-01",
+    "eligible_users": 201,
+    "converted_users": 75
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-10",
+    "eligible_users": 368,
+    "converted_users": 132
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-19",
+    "eligible_users": 152,
+    "converted_users": 54
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-07",
+    "eligible_users": 526,
+    "converted_users": 0
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-18",
+    "eligible_users": 813,
+    "converted_users": 193
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-05",
+    "eligible_users": 120,
+    "converted_users": 29
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-30",
+    "eligible_users": 85,
+    "converted_users": 19
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-05",
+    "eligible_users": 150,
+    "converted_users": 61
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-18",
+    "eligible_users": 97,
+    "converted_users": 30
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-12",
+    "eligible_users": 683,
+    "converted_users": 220
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-03",
+    "eligible_users": 133,
+    "converted_users": 43
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-11-28",
+    "eligible_users": 257,
+    "converted_users": 95
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-27",
+    "eligible_users": 97,
+    "converted_users": 38
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-02",
+    "eligible_users": 126,
+    "converted_users": 38
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-08",
+    "eligible_users": 222,
+    "converted_users": 82
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-01",
+    "eligible_users": 26,
+    "converted_users": 12
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-20",
+    "eligible_users": 119,
+    "converted_users": 79
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-14",
+    "eligible_users": 670,
+    "converted_users": 131
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-15",
+    "eligible_users": 136,
+    "converted_users": 37
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-15",
+    "eligible_users": 104,
+    "converted_users": 20
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-28",
+    "eligible_users": 98,
+    "converted_users": 26
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-18",
+    "eligible_users": 142,
+    "converted_users": 39
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-29",
+    "eligible_users": 34,
+    "converted_users": 15
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-11",
+    "eligible_users": 786,
+    "converted_users": 0
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-05",
+    "eligible_users": 657,
+    "converted_users": 217
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-19",
+    "eligible_users": 79,
+    "converted_users": 33
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-26",
+    "eligible_users": 734,
+    "converted_users": 230
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-22",
+    "eligible_users": 155,
+    "converted_users": 65
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-17",
+    "eligible_users": 128,
+    "converted_users": 72
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-18",
+    "eligible_users": 129,
+    "converted_users": 61
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-14",
+    "eligible_users": 71,
+    "converted_users": 38
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-07",
+    "eligible_users": 580,
+    "converted_users": 113
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-02",
+    "eligible_users": 319,
+    "converted_users": 118
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-12",
+    "eligible_users": 649,
+    "converted_users": 98
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-19",
+    "eligible_users": 844,
+    "converted_users": 26
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-23",
+    "eligible_users": 595,
+    "converted_users": 72
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-11-16",
+    "eligible_users": 35,
+    "converted_users": 13
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-03",
+    "eligible_users": 25,
+    "converted_users": 11
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-07",
+    "eligible_users": 946,
+    "converted_users": 269
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-12",
+    "eligible_users": 170,
+    "converted_users": 81
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-21",
+    "eligible_users": 164,
+    "converted_users": 65
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-06",
+    "eligible_users": 222,
+    "converted_users": 67
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-16",
+    "eligible_users": 147,
+    "converted_users": 54
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-31",
+    "eligible_users": 30,
+    "converted_users": 13
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-05",
+    "eligible_users": 755,
+    "converted_users": 0
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-12",
+    "eligible_users": 121,
+    "converted_users": 33
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-02",
+    "eligible_users": 349,
+    "converted_users": 47
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-28",
+    "eligible_users": 812,
+    "converted_users": 103
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-17",
+    "eligible_users": 177,
+    "converted_users": 68
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-23",
+    "eligible_users": 159,
+    "converted_users": 54
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-28",
+    "eligible_users": 621,
+    "converted_users": 213
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-15",
+    "eligible_users": 552,
+    "converted_users": 107
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-26",
+    "eligible_users": 64,
+    "converted_users": 11
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-11",
+    "eligible_users": 154,
+    "converted_users": 56
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-11-01",
+    "eligible_users": 1,
+    "converted_users": 1
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-25",
+    "eligible_users": 916,
+    "converted_users": 57
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-14",
+    "eligible_users": 803,
+    "converted_users": 268
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-08",
+    "eligible_users": 120,
+    "converted_users": 33
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-05",
+    "eligible_users": 44,
+    "converted_users": 22
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-30",
+    "eligible_users": 939,
+    "converted_users": 314
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-09",
+    "eligible_users": 130,
+    "converted_users": 39
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-24",
+    "eligible_users": 897,
+    "converted_users": 0
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-30",
+    "eligible_users": 32,
+    "converted_users": 16
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-17",
+    "eligible_users": 81,
+    "converted_users": 22
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-26",
+    "eligible_users": 175,
+    "converted_users": 51
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-15",
+    "eligible_users": 62,
+    "converted_users": 31
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-11-19",
+    "eligible_users": 36,
+    "converted_users": 8
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-08",
+    "eligible_users": 521,
+    "converted_users": 98
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-29",
+    "eligible_users": 685,
+    "converted_users": 101
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-08",
+    "eligible_users": 457,
+    "converted_users": 0
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-04",
+    "eligible_users": 174,
+    "converted_users": 70
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-17",
+    "eligible_users": 277,
+    "converted_users": 85
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-23",
+    "eligible_users": 158,
+    "converted_users": 47
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-22",
+    "eligible_users": 895,
+    "converted_users": 114
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-28",
+    "eligible_users": 144,
+    "converted_users": 61
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-30",
+    "eligible_users": 86,
+    "converted_users": 18
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-21",
+    "eligible_users": 75,
+    "converted_users": 41
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-11",
+    "eligible_users": 332,
+    "converted_users": 138
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-04",
+    "eligible_users": 314,
+    "converted_users": 97
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-14",
+    "eligible_users": 158,
+    "converted_users": 35
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-20",
+    "eligible_users": 182,
+    "converted_users": 74
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-19",
+    "eligible_users": 144,
+    "converted_users": 46
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-24",
+    "eligible_users": 59,
+    "converted_users": 28
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-09",
+    "eligible_users": 415,
+    "converted_users": 73
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-21",
+    "eligible_users": 1137,
+    "converted_users": 129
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-29",
+    "eligible_users": 79,
+    "converted_users": 46
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-28",
+    "eligible_users": 68,
+    "converted_users": 41
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-10",
+    "eligible_users": 781,
+    "converted_users": 0
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-16",
+    "eligible_users": 238,
+    "converted_users": 78
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-13",
+    "eligible_users": 220,
+    "converted_users": 74
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-09",
+    "eligible_users": 942,
+    "converted_users": 285
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-21",
+    "eligible_users": 627,
+    "converted_users": 128
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-27",
+    "eligible_users": 699,
+    "converted_users": 242
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-11",
+    "eligible_users": 214,
+    "converted_users": 113
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-18",
+    "eligible_users": 428,
+    "converted_users": 78
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-22",
+    "eligible_users": 124,
+    "converted_users": 70
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-15",
+    "eligible_users": 150,
+    "converted_users": 85
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-24",
+    "eligible_users": 188,
+    "converted_users": 83
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-20",
+    "eligible_users": 849,
+    "converted_users": 1
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-03",
+    "eligible_users": 48,
+    "converted_users": 15
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-26",
+    "eligible_users": 18,
+    "converted_users": 11
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-12",
+    "eligible_users": 265,
+    "converted_users": 103
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-12",
+    "eligible_users": 65,
+    "converted_users": 33
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-16",
+    "eligible_users": 698,
+    "converted_users": 26
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-03",
+    "eligible_users": 890,
+    "converted_users": 0
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-24",
+    "eligible_users": 92,
+    "converted_users": 40
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-07",
+    "eligible_users": 49,
+    "converted_users": 20
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-16",
+    "eligible_users": 833,
+    "converted_users": 170
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-09",
+    "eligible_users": 350,
+    "converted_users": 132
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-20",
+    "eligible_users": 928,
+    "converted_users": 140
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-26",
+    "eligible_users": 769,
+    "converted_users": 87
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-30",
+    "eligible_users": 216,
+    "converted_users": 112
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-11-26",
+    "eligible_users": 278,
+    "converted_users": 108
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-10",
+    "eligible_users": 72,
+    "converted_users": 19
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-06",
+    "eligible_users": 56,
+    "converted_users": 23
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-23",
+    "eligible_users": 540,
+    "converted_users": 122
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-10",
+    "eligible_users": 1030,
+    "converted_users": 299
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-27",
+    "eligible_users": 78,
+    "converted_users": 20
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-19",
+    "eligible_users": 74,
+    "converted_users": 38
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-02",
+    "eligible_users": 55,
+    "converted_users": 16
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-13",
+    "eligible_users": 67,
+    "converted_users": 26
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-23",
+    "eligible_users": 76,
+    "converted_users": 42
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-03",
+    "eligible_users": 365,
+    "converted_users": 125
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-11",
+    "eligible_users": 531,
+    "converted_users": 92
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-19",
+    "eligible_users": 593,
+    "converted_users": 125
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-01",
+    "eligible_users": 403,
+    "converted_users": 129
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-06",
+    "eligible_users": 144,
+    "converted_users": 43
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-13",
+    "eligible_users": 603,
+    "converted_users": 108
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-06",
+    "eligible_users": 637,
+    "converted_users": 122
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-14",
+    "eligible_users": 101,
+    "converted_users": 28
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-14",
+    "eligible_users": 166,
+    "converted_users": 72
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-23",
+    "eligible_users": 769,
+    "converted_users": 0
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-16",
+    "eligible_users": 136,
+    "converted_users": 84
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-07",
+    "eligible_users": 107,
+    "converted_users": 25
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-29",
+    "eligible_users": 126,
+    "converted_users": 45
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-03",
+    "eligible_users": 1051,
+    "converted_users": 293
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-11",
+    "eligible_users": 906,
+    "converted_users": 249
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-06",
+    "eligible_users": 126,
+    "converted_users": 36
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-12",
+    "eligible_users": 160,
+    "converted_users": 46
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-11",
+    "eligible_users": 116,
+    "converted_users": 32
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-22",
+    "eligible_users": 82,
+    "converted_users": 43
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-10",
+    "eligible_users": 229,
+    "converted_users": 106
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-17",
+    "eligible_users": 30,
+    "converted_users": 11
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-24",
+    "eligible_users": 35,
+    "converted_users": 19
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-30",
+    "eligible_users": 494,
+    "converted_users": 67
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-02",
+    "eligible_users": 906,
+    "converted_users": 269
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-27",
+    "eligible_users": 337,
+    "converted_users": 58
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-29",
+    "eligible_users": 98,
+    "converted_users": 22
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-10",
+    "eligible_users": 381,
+    "converted_users": 57
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-20",
+    "eligible_users": 44,
+    "converted_users": 17
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-26",
+    "eligible_users": 341,
+    "converted_users": 56
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-27",
+    "eligible_users": 172,
+    "converted_users": 71
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-31",
+    "eligible_users": 65,
+    "converted_users": 21
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-19",
+    "eligible_users": 119,
+    "converted_users": 42
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-20",
+    "eligible_users": 145,
+    "converted_users": 51
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-02",
+    "eligible_users": 769,
+    "converted_users": 0
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-27",
+    "eligible_users": 30,
+    "converted_users": 15
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-30",
+    "eligible_users": 410,
+    "converted_users": 71
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-23",
+    "eligible_users": 100,
+    "converted_users": 36
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-08",
+    "eligible_users": 55,
+    "converted_users": 29
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-13",
+    "eligible_users": 132,
+    "converted_users": 45
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-15",
+    "eligible_users": 315,
+    "converted_users": 91
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-13",
+    "eligible_users": 584,
+    "converted_users": 195
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-10",
+    "eligible_users": 28,
+    "converted_users": 13
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-10",
+    "eligible_users": 166,
+    "converted_users": 56
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-08",
+    "eligible_users": 98,
+    "converted_users": 29
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-11-18",
+    "eligible_users": 195,
+    "converted_users": 71
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-01",
+    "eligible_users": 59,
+    "converted_users": 18
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-11-25",
+    "eligible_users": 74,
+    "converted_users": 28
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-30",
+    "eligible_users": 44,
+    "converted_users": 21
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-25",
+    "eligible_users": 112,
+    "converted_users": 48
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-27",
+    "eligible_users": 187,
+    "converted_users": 58
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-09",
+    "eligible_users": 87,
+    "converted_users": 21
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-07",
+    "eligible_users": 141,
+    "converted_users": 30
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-11",
+    "eligible_users": 49,
+    "converted_users": 21
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-09",
+    "eligible_users": 35,
+    "converted_users": 15
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-14",
+    "eligible_users": 317,
+    "converted_users": 99
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-06",
+    "eligible_users": 621,
+    "converted_users": 199
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-05",
+    "eligible_users": 259,
+    "converted_users": 97
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-09",
+    "eligible_users": 662,
+    "converted_users": 0
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-31",
+    "eligible_users": 301,
+    "converted_users": 50
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-23",
+    "eligible_users": 64,
+    "converted_users": 33
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-18",
+    "eligible_users": 826,
+    "converted_users": 145
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-04",
+    "eligible_users": 760,
+    "converted_users": 0
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-15",
+    "eligible_users": 910,
+    "converted_users": 247
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-24",
+    "eligible_users": 85,
+    "converted_users": 21
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-25",
+    "eligible_users": 30,
+    "converted_users": 13
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-20",
+    "eligible_users": 456,
+    "converted_users": 90
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-13",
+    "eligible_users": 672,
+    "converted_users": 0
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-11-30",
+    "eligible_users": 396,
+    "converted_users": 164
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-05",
+    "eligible_users": 561,
+    "converted_users": 104
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-07",
+    "eligible_users": 175,
+    "converted_users": 72
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-22",
+    "eligible_users": 695,
+    "converted_users": 152
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-18",
+    "eligible_users": 39,
+    "converted_users": 15
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-22",
+    "eligible_users": 105,
+    "converted_users": 27
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-12-28",
+    "eligible_users": 43,
+    "converted_users": 28
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-27",
+    "eligible_users": 937,
+    "converted_users": 138
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-01",
+    "eligible_users": 963,
+    "converted_users": 318
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-12-28",
+    "eligible_users": 413,
+    "converted_users": 75
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2020-11-05",
+    "eligible_users": 124,
+    "converted_users": 24
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-01",
+    "eligible_users": 516,
+    "converted_users": 1
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-21",
+    "eligible_users": 672,
+    "converted_users": 0
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-16",
+    "eligible_users": 42,
+    "converted_users": 21
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-25",
+    "eligible_users": 71,
+    "converted_users": 46
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-22",
+    "eligible_users": 183,
+    "converted_users": 55
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2021-01-26",
+    "eligible_users": 115,
+    "converted_users": 38
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-15",
+    "eligible_users": 418,
+    "converted_users": 0
+  },
+  {
+    "stage": 3,
+    "eligibility_date": "2020-12-08",
+    "eligible_users": 381,
+    "converted_users": 128
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2020-11-17",
+    "eligible_users": 850,
+    "converted_users": 179
+  },
+  {
+    "stage": 2,
+    "eligibility_date": "2021-01-03",
+    "eligible_users": 355,
+    "converted_users": 39
+  },
+  {
+    "stage": 4,
+    "eligibility_date": "2021-01-02",
+    "eligible_users": 29,
+    "converted_users": 11
+  }
+]

@@ -3,7 +3,25 @@
 
 **Business problem:** identify where ecommerce journeys lose users, distinguish audience changes from changes within segments, and design a defensible next product experiment.
 
-**Current findings:** not yet available. The real public source is documented, but BigQuery application-default credentials and a query project are missing in this environment. No numerical business findings, incidents, experiment results, or synthetic headline data have been substituted. The full pipeline is implemented; live execution remains a required verification step.
+**Execution status:** the full BigQuery pipeline has run against the real source, all warehouse quality gates passed, and the site publishes observed results. The prospective experiment has **not** been run.
+
+<!-- BEGIN GENERATED FINDINGS -->
+
+## Verified findings
+
+* **Largest drop-off: product view to cart:** 14,380 of 77,020 eligible sessions progressed; 81.3% did not. End-to-end completion was 3.6%. **Decision:** Clarify availability and the add-to-cart action on product pages. Validate event order before testing. Descriptive sequence, not a causal effect.
+
+* **Device checkout comparison:** Mobile 54.74%; desktop 52.67%. Difference +2.06 percentage points. **Decision:** Do not prioritize mobile checkout based on an assumed deficit; test the larger observed funnel bottleneck first. Exploratory association; multiple segment comparisons are not confirmatory tests.
+
+* **A real conversion change on 2021-01-22:** Session conversion was 2.18%, versus 0.76% across prior matched weekdays. Device mix contributed -0.001 pp; within-device rates +1.417 pp. **Decision:** Review changes in traffic quality, product demand and instrumentation across devices. Do not attribute the change to a release without independent evidence. Descriptive decomposition; no product incident or causal explanation is established.
+
+* **Return on the seventh day:** 1,966 of 250,712 eligible first-observed users returned on exact D7 (0.8%). **Decision:** Compare mature cohorts and first-session behavior before planning retention interventions. No claim that carting or purchasing causes return.
+
+* **A testable next product decision:** The eligible-user baseline is 16.44%. A 10% relative MDE requires 8,293 users per arm at 80% power (~28 days), or 11,102 at 90% (~35 days). **Decision:** Clarify availability and the add-to-cart action on product pages. Randomize users with persistent assignment. Prospective design at two-sided 5% alpha and 50/50 allocation; no treatment result.
+
+Generated from [report.json](data/published/report.json); source aggregates and query hashes are preserved alongside it.
+
+<!-- END GENERATED FINDINGS -->
 
 **[Case study](https://kohaningithub.github.io/google-merchandise-product-analytics/)** · [SQL](sql) · [Metric/data contracts](docs/data-dictionary.md) · [Experiment protocol](docs/experiment-design.md) · [Review & limitations](docs/review.md)
 
@@ -43,7 +61,7 @@ python -m ruff check src tests scripts airflow
 python -m http.server 8080 --directory site
 ```
 
-Open `http://localhost:8080`. The committed report renders the explicit pending-data state until a real run replaces it. Synthetic fixtures live only in tests; they are not website inputs. Once executed, small published aggregate snapshots can be committed for offline rendering. Raw event/user/session exports are not downloaded.
+Open `http://localhost:8080`. The committed report and aggregate query outputs render verified results without cloud credentials. Synthetic fixtures live only in tests and temporary test directories; they are not website inputs. Raw event/user/session rows are not downloaded.
 
 ## One-time BigQuery access
 
@@ -55,7 +73,7 @@ Open `http://localhost:8080`. The committed report renders the explicit pending-
 cd google-merchandise-product-analytics
 python -m pip install -e ".[dev]"
 gcloud auth application-default login
-$env:GOOGLE_CLOUD_PROJECT="YOUR_ACTUAL_PROJECT_ID"
+$env:GOOGLE_CLOUD_PROJECT="project-a1c7b526-d5b8-4e0c-9f1"
 $env:BQ_DATASET="product_analytics"
 $env:BQ_LOCATION="US"
 $env:BQ_MAX_BYTES="5000000000"
@@ -68,13 +86,13 @@ The full command executes: **audit → models → validate → export → analyz
 
 ### Cost controls
 
-The raw scan always uses `_TABLE_SUFFIX BETWEEN '20201101' AND '20210131'` and only selects needed fields. Subsequent queries read materialized models, not the wildcard source. Every query gets a dry run and a default 5 GB per-query maximum; this is a limit, **not a measured scan estimate** and not a total budget. The driver records estimates, processed/billed bytes, cache status, job ID and SQL hash in `data/processed/query_log.jsonl`. Actual bytes are unavailable until authenticated execution. Inspect cumulative usage; free-tier sufficiency is not guaranteed for unlimited reruns. Sandbox tables expire, so rerun models when necessary. The driver sets a 60-day default expiry on its own destination dataset.
+The raw scan always uses `_TABLE_SUFFIX BETWEEN '20201101' AND '20210131'` and only selects needed fields. Subsequent queries read materialized models, not the wildcard source. Every query gets a dry run and a default 5 GB per-query maximum; this is a limit, **not a measured scan estimate** and not a total budget. The driver records estimates, processed/billed bytes, cache status, job ID and SQL hash in `data/processed/query_log.jsonl`. Actual estimates and processed bytes for the latest successful queries are preserved in `report.json` under `warehouse_jobs`; SQL hashes and aggregate-input hashes are also preserved. Hashes normalize text to UTF-8 with LF line endings for cross-platform reproducibility. Inspect cumulative usage; free-tier sufficiency is not guaranteed for unlimited reruns. Sandbox tables expire, so rerun models when necessary. The driver sets a 60-day default expiry on its own destination dataset.
 
 ## Source and audit
 
 Exact source: **`bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`**, **2020-11-01 through 2021-01-31**. Google's [dataset documentation](https://developers.google.com/analytics/bigquery/web-ecommerce-demo-dataset) warns that the data is obfuscated, includes placeholders, and has limited internal consistency. It cannot be compared directly to the GA demo account.
 
-`audit` records actual schema, date bounds, event names, user/session coverage, purchase and transaction issues, USD availability, device/country/acquisition values, repeated fingerprints, and required ecommerce event coverage. Missing IDs are visible exclusions. Known placeholders do not become valid user or transaction keys.
+`audit` records actual schema, date bounds, event names, user/session coverage, purchase and transaction issues, USD availability, device/country/acquisition values, repeated fingerprints, and required ecommerce event coverage. Missing IDs are visible exclusions. Known placeholders do not become valid user or transaction keys. Conflicting transaction IDs are quarantined before deduplication; the quality gate verifies that none entered the accepted fact table and reconciles the accepted subset. `transaction_diagnosis.json` retains the exclusion accounting.
 
 ## Analytical decisions worth inspecting
 
@@ -92,8 +110,24 @@ Airflow DAG: `airflow/dags/product_analytics_pipeline.py`, targeting Airflow 3.x
 
 ## Tests and publication
 
-Tests cover censoring boundaries, zero denominators, power monotonicity, past-only detection, incomplete revenue, exact decomposition including entering/exiting segments, canonical dbt drift, BigQuery parsing, site provenance contracts, and DAG syntax. Offline tests do not replace a BigQuery execution or dbt adapter integration test.
+Tests cover censoring boundaries, zero denominators, power monotonicity, past-only detection, incomplete revenue, exact decomposition including entering/exiting segments, canonical dbt drift, BigQuery parsing, site provenance contracts, and DAG syntax. This run passed the warehouse quality gate and all dbt tests against the real BigQuery tables. The dated [dbt validation output](data/published/dbt-validation.json) records those results; Python tests also reconstruct the committed analytical artifacts.
 
 The repository workflows test this project and publish only this case study to GitHub Pages. The original private portfolio repository remains private. Site values render from `data/published/report.json`; the JSON and aggregate CSVs are downloadable. Figures are generated from those same records. Analytical figures are absent when data is absent.
 
-The first real run writes local schema/audit/quality/aggregate inputs, generated findings and power design, historical alerts, decomposition outputs, and chart artifacts. Inspect the quality results and limitations before committing refreshed aggregate outputs.
+The completed run preserves schema, audit, quality and aggregate inputs under `data/published/inputs/`, plus generated findings, prospective power design, historical alerts, diagnosis and charts. Tests reconstruct the published findings, experiment baseline, contribution analysis, CSVs and SVGs from those input snapshots. The January investigation includes a two-recent-Friday sensitivity comparison because the longer matched-weekday baseline includes holidays.
+
+## Authentication used for this execution
+
+The CLI was signed in but the conventional ADC file was absent. The run used the existing CLI-generated credential file through `GOOGLE_APPLICATION_CREDENTIALS`; no credentials were copied or committed. To reuse the same local sign-in in PowerShell:
+
+```powershell
+$gcloud = Join-Path $env:LOCALAPPDATA 'Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd'
+$account = (& $gcloud auth list --filter=status:ACTIVE --format='value(account)').Trim()
+$env:GOOGLE_APPLICATION_CREDENTIALS = Join-Path $env:APPDATA "gcloud\legacy_credentials\$account\adc.json"
+$env:GOOGLE_CLOUD_PROJECT = 'project-a1c7b526-d5b8-4e0c-9f1'
+python -m src.pipeline all
+python -m pytest -q
+python -m ruff check src tests scripts airflow
+```
+
+Other users should authenticate with their own project and the standard ADC command above. A local BigQuery run generates results; commit the refreshed published aggregates and site files to `main` to trigger Pages deployment.

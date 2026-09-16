@@ -27,7 +27,7 @@ def retention_svg(rows, path):
     weeks = sorted({r["cohort_week"] for r in rows})
     lookup = {(r["cohort_week"], r["horizon"]): r for r in rows}
     parts = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 {70 + 40 * len(weeks)}" role="img" aria-label="Exact-day retention heatmap">'
+        f'<svg xmlns="http://www.w3.org/2000/svg" font-family="sans-serif" viewBox="0 0 600 {70 + 40 * len(weeks)}" role="img" aria-label="Exact-day retention heatmap">'
     ]
     for j, h in enumerate([1, 7, 14, 30]):
         parts.append(f'<text x="{190 + j * 100}" y="25" fill="#e5eef3">D{h}</text>')

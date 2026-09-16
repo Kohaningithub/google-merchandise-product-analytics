@@ -18,7 +18,7 @@ from .metrics import METRICS
 from .plotting import funnel_svg, retention_svg
 from .retention import summarize
 from .root_cause import investigate
-from .validation import load, provenance, validate_exports
+from .validation import file_digest, load, provenance, validate_exports
 
 
 def write_json(path, value):
@@ -39,6 +39,8 @@ def analyze():
     users = sum(r["eligible_users"] for r in eligible_rows)
     converted = sum(r["converted_users"] for r in eligible_rows)
     design = power_plan(converted, users, users / 91)
+    design["converted_users"] = converted
+    design["baseline_days"] = 91
     design["observed_bottleneck"] = bottleneck
     hypotheses = {
         2: ("Product view to cart", "Clarify availability and the add-to-cart action on product pages."),
@@ -64,6 +66,8 @@ def analyze():
         segments=segments(load("mart_segments")),
         retention=summarize(load("mart_retention")),
         experiment=design,
+        transaction_diagnosis=load("transaction_diagnosis"),
+        quality=load("quality"),
         audit=[
             dict(row, label="redacted") if row["section"] == "transaction_duplicates" else row
             for row in load("audit")
@@ -71,6 +75,30 @@ def analyze():
         product_coverage=load("product_coverage"),
     )
     summary["findings"] = findings(summary)
+    overview = next(
+        (json.loads(row["detail"]) for row in summary["audit"] if row["section"] == "overview"), {}
+    )
+    summary["overview"] = dict(
+        **overview,
+        validated_transactions=sum(row["transactions"] for row in daily),
+        validated_revenue_usd=sum(row["revenue_usd"] for row in daily),
+        purchase_sessions=sum(row["purchase_sessions"] for row in daily),
+    )
+    inputs = ROOT / "data/published/inputs"
+    inputs.mkdir(parents=True, exist_ok=True)
+    for name in summary["provenance"]:
+        shutil.copyfile(ROOT / "data/processed" / name, inputs / name)
+    log_path = ROOT / "data/processed/query_log.jsonl"
+    if log_path.exists():
+        latest_jobs = {}
+        for line in log_path.read_text(encoding="utf-8").splitlines():
+            job = json.loads(line)
+            latest_jobs[job["name"]] = job
+        summary["warehouse_jobs"] = latest_jobs
+    summary["sql_provenance"] = {
+        str(path.relative_to(ROOT)).replace("\\", "/"): file_digest(path)
+        for path in sorted((ROOT / "sql").rglob("*.sql"))
+    }
     write_json(ROOT / "data/published/report.json", summary)
     # CSV exports are aggregate-only and reproduce the chart inputs.
     for name in ["daily", "funnel", "retention", "segments"]:
@@ -80,14 +108,15 @@ def analyze():
 def findings(report):
     out = []
     f = sorted([r for r in report["funnel"] if r["grain"] == "ordered_sessions"], key=lambda r: r["stage"])
-    if f and f[0]["reached"]:
+    if f and f[0]["reached"] and report["experiment"]["observed_bottleneck"]:
         out.append(
             dict(
-                title="Observable end-to-end funnel",
-                evidence=f"{f[-1]['reached']:,} of {f[0]['reached']:,} product-view sessions reached all ordered stages ({f[-1]['reached'] / f[0]['reached']:.1%}).",
-                interpretation="Missing and tied event order can undercount complete journeys.",
-                action="Audit stage instrumentation before treating dropoff as UX friction.",
+                title=f"Largest drop-off: {report['experiment']['transition'].lower()}",
+                evidence=f"{report['experiment']['observed_bottleneck']['reached']:,} of {report['experiment']['observed_bottleneck']['previous_reached']:,} eligible sessions progressed; {report['experiment']['observed_bottleneck']['dropoff_rate']:.1%} did not. End-to-end completion was {f[-1]['reached'] / f[0]['reached']:.1%}.",
+                interpretation="This is the largest proportional loss in the observable sequence; it is not proof of avoidable UX friction.",
+                action=report["experiment"]["product_change"] + " Validate event order before testing.",
                 boundary="Descriptive sequence, not a causal effect.",
+                sources=["inputs/mart_funnel.json", "experiment.observed_bottleneck"],
             )
         )
     devices = {
@@ -100,10 +129,13 @@ def findings(report):
         out.append(
             dict(
                 title="Device checkout comparison",
-                evidence=f"Mobile {a['checkout_completion']:.1%}; desktop {b['checkout_completion']:.1%}. Difference {(a['checkout_completion'] - b['checkout_completion']) * 100:+.1f} percentage points.",
+                evidence=f"Mobile {a['checkout_completion']:.2%}; desktop {b['checkout_completion']:.2%}. Difference {(a['checkout_completion'] - b['checkout_completion']) * 100:+.2f} percentage points.",
                 interpretation="Wilson intervals and eligible counts are available in the aggregate download.",
-                action="Review composition and instrumentation before prioritizing a device-specific test.",
+                action="Do not prioritize mobile checkout based on an assumed deficit; test the larger observed funnel bottleneck first."
+                if a["checkout_completion"] >= b["checkout_completion"]
+                else "Investigate mobile composition and instrumentation before choosing a device-specific test.",
                 boundary="Exploratory association; multiple segment comparisons are not confirmatory tests.",
+                sources=["inputs/mart_segments.json", "segments"],
             )
         )
     cohorts = [r for r in report["retention"] if r["dimension"] == "all" and r["horizon"] == 7]
@@ -116,9 +148,44 @@ def findings(report):
                 interpretation="This is browser-level return behavior, not signup retention.",
                 action="Compare mature cohorts and first-session behavior before planning retention interventions.",
                 boundary="No claim that carting or purchasing causes return.",
+                sources=["inputs/mart_retention.json"],
             )
         )
-    return out
+    investigation = report.get("investigation", {})
+    cases = investigation.get("cases", [])
+    if cases:
+        case = next((c for c in cases if c["dimension"] == "device"), cases[0])
+        overall = investigation["overall"]
+        current, baseline = overall["current"], overall["baseline"]
+        out.insert(
+            2,
+            dict(
+                title=f"A real conversion change on {investigation['date']}",
+                evidence=f"Session conversion was {current['conversion']:.2%}, versus {baseline['conversion']:.2%} across prior matched weekdays. Device mix contributed {case['mix'] * 100:+.3f} pp; within-device rates {case['within'] * 100:+.3f} pp.",
+                interpretation="The change remains visible against the two most recent matched weekdays; the full baseline includes holiday dates.",
+                action="Review changes in traffic quality, product demand and instrumentation across devices. Do not attribute the change to a release without independent evidence.",
+                boundary="Descriptive decomposition; no product incident or causal explanation is established.",
+                sources=[
+                    "inputs/mart_segments.json",
+                    "inputs/mart_daily_product_metrics.json",
+                    "investigation",
+                ],
+            ),
+        )
+    design = report["experiment"]
+    if design.get("scenarios"):
+        a, b = design["scenarios"]
+        out.append(
+            dict(
+                title="A testable next product decision",
+                evidence=f"The eligible-user baseline is {design['baseline']:.2%}. A {design['relative_mde']:.0%} relative MDE requires {a['per_arm']:,} users per arm at {a['power']:.0%} power (~{a['duration_days']} days), or {b['per_arm']:,} at {b['power']:.0%} (~{b['duration_days']} days).",
+                interpretation="Duration uses observed eligible traffic and full weeks; holiday seasonality limits forecasts.",
+                action=design["product_change"] + " Randomize users with persistent assignment.",
+                boundary="Prospective design at two-sided 5% alpha and 50/50 allocation; no treatment result.",
+                sources=["inputs/mart_experiment.json", "experiment"],
+            )
+        )
+    return out[:5]
 
 
 def monitor():
@@ -128,6 +195,7 @@ def monitor():
         raise ValueError("Monitoring requires verified exports")
     report["alerts"] = detect(report["daily"])
     report["investigation"] = investigate(load("mart_segments"), report["alerts"])
+    report["findings"] = findings(report)
     write_json(path, report)
 
 
@@ -161,6 +229,24 @@ def site():
     shutil.copyfile(path, ROOT / "site/report.json")
     for csv in (ROOT / "data/published").glob("*.csv"):
         shutil.copyfile(csv, ROOT / "site" / csv.name)
+    readme = ROOT / "README.md"
+    if report["status"] == "verified" and readme.exists():
+        text = readme.read_text(encoding="utf-8")
+        start, end = "<!-- BEGIN GENERATED FINDINGS -->", "<!-- END GENERATED FINDINGS -->"
+        if start in text and end in text:
+            lines = [start, "", "## Verified findings", ""]
+            for f in report["findings"]:
+                lines += [
+                    f"* **{f['title']}:** {f['evidence']} **Decision:** {f['action']} {f['boundary']}",
+                    "",
+                ]
+            lines += [
+                "Generated from [report.json](data/published/report.json); source aggregates and query hashes are preserved alongside it.",
+                "",
+                end,
+            ]
+            text = text[: text.index(start)] + "\n".join(lines) + text[text.index(end) + len(end) :]
+            readme.write_text(text, encoding="utf-8")
 
 
 def run(command):

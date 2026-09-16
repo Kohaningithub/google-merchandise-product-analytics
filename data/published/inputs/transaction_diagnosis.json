@@ -1,0 +1,26 @@
+[
+  {
+    "status": "conflicting",
+    "transaction_ids": 15,
+    "source_purchase_events": 33,
+    "sum_minimum_usd": 630.0,
+    "sum_maximum_usd": 1522.0,
+    "cross_session_ids": 15
+  },
+  {
+    "status": "consistent_repeats",
+    "transaction_ids": 311,
+    "source_purchase_events": 628,
+    "sum_minimum_usd": 20674.0,
+    "sum_maximum_usd": 20674.0,
+    "cross_session_ids": 0
+  },
+  {
+    "status": "single",
+    "transaction_ids": 4125,
+    "source_purchase_events": 4125,
+    "sum_minimum_usd": 286004.0,
+    "sum_maximum_usd": 286004.0,
+    "cross_session_ids": 0
+  }
+]

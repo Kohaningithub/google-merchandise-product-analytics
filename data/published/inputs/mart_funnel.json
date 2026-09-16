@@ -1,0 +1,90 @@
+[
+  {
+    "grain": "unordered_users",
+    "stage": 4,
+    "reached": 4419,
+    "previous_reached": 9715,
+    "entrants": 61252,
+    "step_conversion": null,
+    "dropoff": null,
+    "dropoff_rate": null,
+    "total_conversion": null
+  },
+  {
+    "grain": "ordered_sessions",
+    "stage": 2,
+    "reached": 14380,
+    "previous_reached": 77020,
+    "entrants": 77020,
+    "step_conversion": 0.18670475201246428,
+    "dropoff": 62640,
+    "dropoff_rate": 0.8132952479875357,
+    "total_conversion": 0.18670475201246428
+  },
+  {
+    "grain": "unordered_users",
+    "stage": 3,
+    "reached": 9715,
+    "previous_reached": 12545,
+    "entrants": 61252,
+    "step_conversion": null,
+    "dropoff": null,
+    "dropoff_rate": null,
+    "total_conversion": null
+  },
+  {
+    "grain": "unordered_users",
+    "stage": 2,
+    "reached": 12545,
+    "previous_reached": 61252,
+    "entrants": 61252,
+    "step_conversion": null,
+    "dropoff": null,
+    "dropoff_rate": null,
+    "total_conversion": null
+  },
+  {
+    "grain": "ordered_sessions",
+    "stage": 4,
+    "reached": 2778,
+    "previous_reached": 5187,
+    "entrants": 77020,
+    "step_conversion": 0.5355696934644303,
+    "dropoff": 2409,
+    "dropoff_rate": 0.4644303065355697,
+    "total_conversion": 0.03606855362243573
+  },
+  {
+    "grain": "ordered_sessions",
+    "stage": 3,
+    "reached": 5187,
+    "previous_reached": 14380,
+    "entrants": 77020,
+    "step_conversion": 0.36070931849791377,
+    "dropoff": 9193,
+    "dropoff_rate": 0.6392906815020862,
+    "total_conversion": 0.067346143858738
+  },
+  {
+    "grain": "unordered_users",
+    "stage": 1,
+    "reached": 61252,
+    "previous_reached": null,
+    "entrants": 61252,
+    "step_conversion": null,
+    "dropoff": null,
+    "dropoff_rate": null,
+    "total_conversion": null
+  },
+  {
+    "grain": "ordered_sessions",
+    "stage": 1,
+    "reached": 77020,
+    "previous_reached": null,
+    "entrants": 77020,
+    "step_conversion": null,
+    "dropoff": null,
+    "dropoff_rate": null,
+    "total_conversion": 1.0
+  }
+]

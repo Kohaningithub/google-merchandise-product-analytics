@@ -1,0 +1,70 @@
+[
+  {
+    "test": "observed_date_coverage",
+    "failures": 0
+  },
+  {
+    "test": "retention_subset",
+    "failures": 0
+  },
+  {
+    "test": "critical_event_fields",
+    "failures": 0
+  },
+  {
+    "test": "first_session_chronology",
+    "failures": 0
+  },
+  {
+    "test": "transaction_conflicts_in_accepted_facts",
+    "failures": 0
+  },
+  {
+    "test": "cohort_bounds",
+    "failures": 0
+  },
+  {
+    "test": "session_time_order",
+    "failures": 0
+  },
+  {
+    "test": "negative_revenue",
+    "failures": 0
+  },
+  {
+    "test": "transaction_reconciliation",
+    "failures": 0
+  },
+  {
+    "test": "daily_session_reconciliation",
+    "failures": 0
+  },
+  {
+    "test": "ordered_funnel",
+    "failures": 0
+  },
+  {
+    "test": "session_key_unique",
+    "failures": 0
+  },
+  {
+    "test": "daily_transaction_reconciliation",
+    "failures": 0
+  },
+  {
+    "test": "transaction_unique",
+    "failures": 0
+  },
+  {
+    "test": "user_key_unique",
+    "failures": 0
+  },
+  {
+    "test": "session_event_reconciliation",
+    "failures": 0
+  },
+  {
+    "test": "cohort_activity_order",
+    "failures": 0
+  }
+]

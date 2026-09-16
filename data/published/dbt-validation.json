@@ -1,0 +1,166 @@
+{
+  "generated_at": "2026-09-16T17:39:56.597486Z",
+  "dbt_version": "1.12.5",
+  "results": [
+    {
+      "test": "test.merchandise_product_analytics.accepted_values_mart_retention_horizon__False__1__7__14__30.bcd7cf2ce9",
+      "status": "pass",
+      "failures": 0,
+      "adapter_response": {
+        "_message": "SELECT (1.0 rows, 47.6 KiB processed)",
+        "code": "SELECT",
+        "rows_affected": 1,
+        "bytes_processed": 48792,
+        "bytes_billed": 10485760,
+        "location": "US",
+        "project_id": "project-a1c7b526-d5b8-4e0c-9f1",
+        "job_id": "834d3dc4-0672-4b0c-b0f3-b636d6998a22",
+        "slot_ms": 13
+      }
+    },
+    {
+      "test": "test.merchandise_product_analytics.not_null_fct_purchases_transaction_id.027be88514",
+      "status": "pass",
+      "failures": 0,
+      "adapter_response": {
+        "_message": "SELECT (1.0 rows, 34.2 KiB processed)",
+        "code": "SELECT",
+        "rows_affected": 1,
+        "bytes_processed": 35008,
+        "bytes_billed": 10485760,
+        "location": "US",
+        "project_id": "project-a1c7b526-d5b8-4e0c-9f1",
+        "job_id": "0323d461-751d-4084-8260-84b1e9c5416a",
+        "slot_ms": 24
+      }
+    },
+    {
+      "test": "test.merchandise_product_analytics.not_null_int_users_user_pseudo_id.22526940d4",
+      "status": "pass",
+      "failures": 0,
+      "adapter_response": {
+        "_message": "SELECT (1.0 rows, 5.3 MiB processed)",
+        "code": "SELECT",
+        "rows_affected": 1,
+        "bytes_processed": 5583849,
+        "bytes_billed": 10485760,
+        "location": "US",
+        "project_id": "project-a1c7b526-d5b8-4e0c-9f1",
+        "job_id": "9bd74990-1cad-4bec-a140-5d029206dfbe",
+        "slot_ms": 17
+      }
+    },
+    {
+      "test": "test.merchandise_product_analytics.not_null_int_sessions_session_id.b77b916910",
+      "status": "pass",
+      "failures": 0,
+      "adapter_response": {
+        "_message": "SELECT (1.0 rows, 23.5 MiB processed)",
+        "code": "SELECT",
+        "rows_affected": 1,
+        "bytes_processed": 24690165,
+        "bytes_billed": 25165824,
+        "location": "US",
+        "project_id": "project-a1c7b526-d5b8-4e0c-9f1",
+        "job_id": "b84bdda9-3cf3-4719-845d-74a333d36481",
+        "slot_ms": 14
+      }
+    },
+    {
+      "test": "test.merchandise_product_analytics.not_null_mart_daily_product_metrics_metric_date.a59bd37fe5",
+      "status": "pass",
+      "failures": 0,
+      "adapter_response": {
+        "_message": "SELECT (1.0 rows, 736.0 Bytes processed)",
+        "code": "SELECT",
+        "rows_affected": 1,
+        "bytes_processed": 736,
+        "bytes_billed": 10485760,
+        "location": "US",
+        "project_id": "project-a1c7b526-d5b8-4e0c-9f1",
+        "job_id": "141523d8-cbd8-4d24-8172-c1a80cad5599",
+        "slot_ms": 16
+      }
+    },
+    {
+      "test": "test.merchandise_product_analytics.quality",
+      "status": "pass",
+      "failures": 0,
+      "adapter_response": {
+        "_message": "SELECT (1.0 rows, 534.5 MiB processed)",
+        "code": "SELECT",
+        "rows_affected": 1,
+        "bytes_processed": 560452082,
+        "bytes_billed": 560988160,
+        "location": "US",
+        "project_id": "project-a1c7b526-d5b8-4e0c-9f1",
+        "job_id": "5532416b-95bd-4fd2-a27a-72ce1c7200ec",
+        "slot_ms": 31955
+      }
+    },
+    {
+      "test": "test.merchandise_product_analytics.unique_fct_purchases_transaction_id.5844577678",
+      "status": "pass",
+      "failures": 0,
+      "adapter_response": {
+        "_message": "SELECT (1.0 rows, 34.2 KiB processed)",
+        "code": "SELECT",
+        "rows_affected": 1,
+        "bytes_processed": 35008,
+        "bytes_billed": 10485760,
+        "location": "US",
+        "project_id": "project-a1c7b526-d5b8-4e0c-9f1",
+        "job_id": "308d859e-f672-4f83-9744-63b559b39d59",
+        "slot_ms": 22
+      }
+    },
+    {
+      "test": "test.merchandise_product_analytics.unique_int_sessions_session_id.3c58befa4f",
+      "status": "pass",
+      "failures": 0,
+      "adapter_response": {
+        "_message": "SELECT (1.0 rows, 23.5 MiB processed)",
+        "code": "SELECT",
+        "rows_affected": 1,
+        "bytes_processed": 24690165,
+        "bytes_billed": 25165824,
+        "location": "US",
+        "project_id": "project-a1c7b526-d5b8-4e0c-9f1",
+        "job_id": "b588f046-fc0c-4fa8-afd1-a437a48d3511",
+        "slot_ms": 592
+      }
+    },
+    {
+      "test": "test.merchandise_product_analytics.unique_int_users_user_pseudo_id.7754a23064",
+      "status": "pass",
+      "failures": 0,
+      "adapter_response": {
+        "_message": "SELECT (1.0 rows, 5.3 MiB processed)",
+        "code": "SELECT",
+        "rows_affected": 1,
+        "bytes_processed": 5583849,
+        "bytes_billed": 10485760,
+        "location": "US",
+        "project_id": "project-a1c7b526-d5b8-4e0c-9f1",
+        "job_id": "7b1790a6-2182-40b1-b86b-cf87fcb692b1",
+        "slot_ms": 337
+      }
+    },
+    {
+      "test": "test.merchandise_product_analytics.unique_mart_daily_product_metrics_metric_date.eee63ac738",
+      "status": "pass",
+      "failures": 0,
+      "adapter_response": {
+        "_message": "SELECT (1.0 rows, 736.0 Bytes processed)",
+        "code": "SELECT",
+        "rows_affected": 1,
+        "bytes_processed": 736,
+        "bytes_billed": 10485760,
+        "location": "US",
+        "project_id": "project-a1c7b526-d5b8-4e0c-9f1",
+        "job_id": "b5733ce2-7c68-4896-b526-3e502ef3d94e",
+        "slot_ms": 20
+      }
+    }
+  ]
+}
