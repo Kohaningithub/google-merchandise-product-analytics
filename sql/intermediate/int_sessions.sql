@@ -1,0 +1,38 @@
+WITH event_sessions AS (
+ SELECT session_id, ANY_VALUE(user_pseudo_id) AS user_pseudo_id,
+   MIN(event_timestamp) AS session_start, MAX(event_timestamp) AS session_end,
+   MAX(event_date) AS session_end_date,
+   ARRAY_AGG(STRUCT(event_date, device, country, source, medium, ga_session_number)
+     ORDER BY event_timestamp, event_fingerprint LIMIT 1)[OFFSET(0)] AS first_event,
+   COUNT(*) AS events, COUNTIF(event_name='page_view') AS page_views,
+   COUNTIF(event_name='view_item')>0 AS viewed_item,
+   COUNTIF(event_name='add_to_cart')>0 AS added_cart,
+   COUNTIF(event_name='begin_checkout')>0 AS began_checkout,
+   COUNTIF(event_name='purchase')>0 AS purchase_event,
+   MIN(IF(event_name='view_item',event_timestamp,NULL)) AS view_ts
+ FROM {{ ref('stg_events') }} WHERE session_id IS NOT NULL GROUP BY session_id
+), cart AS (
+ SELECT s.*, (SELECT MIN(e.event_timestamp) FROM {{ ref('stg_events') }} e
+   WHERE e.session_id=s.session_id AND e.event_name='add_to_cart' AND e.event_timestamp>s.view_ts) AS cart_ts
+ FROM event_sessions s
+), checkout AS (
+ SELECT s.*, (SELECT MIN(e.event_timestamp) FROM {{ ref('stg_events') }} e
+   WHERE e.session_id=s.session_id AND e.event_name='begin_checkout' AND e.event_timestamp>s.cart_ts) AS checkout_ts
+ FROM cart s
+), ordered AS (
+ SELECT s.*, (SELECT MIN(e.event_timestamp) FROM {{ ref('stg_events') }} e
+   WHERE e.session_id=s.session_id AND e.event_name='purchase' AND e.event_timestamp>s.checkout_ts) AS purchase_ts
+ FROM checkout s
+), money AS (
+ SELECT session_id, COUNT(*) AS transactions, SUM(revenue_usd) AS revenue_usd,
+ COUNTIF(revenue_usd IS NULL) AS missing_revenue_transactions
+ FROM {{ ref('fct_purchases') }} WHERE session_id IS NOT NULL GROUP BY session_id
+)
+SELECT s.* EXCEPT(first_event), first_event.event_date AS session_date,
+ first_event.device, first_event.country, first_event.source, first_event.medium,
+ CASE WHEN first_event.ga_session_number=1 THEN 'new_proxy'
+      WHEN first_event.ga_session_number>1 THEN 'returning_proxy' ELSE 'unknown' END AS visitor_type,
+ COALESCE(m.transactions,0) AS transactions,
+ IF(m.transactions IS NULL,0,m.revenue_usd) AS revenue_usd,
+ COALESCE(m.missing_revenue_transactions,0) AS missing_revenue_transactions
+FROM ordered s LEFT JOIN money m USING(session_id)

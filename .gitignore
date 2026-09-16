@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+data/processed/*
+!data/processed/.gitkeep
+.env
+!.env.example
+dbt/target/
+dbt/logs/
+site/template.html.bak
+
+dist/
+*.log

@@ -1,0 +1,12 @@
+merchandise_product_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('GOOGLE_CLOUD_PROJECT') }}"
+      dataset: "{{ env_var('BQ_DATASET', 'product_analytics') }}"
+      location: US
+      threads: 2
+      maximum_bytes_billed: 5000000000
+      job_execution_timeout_seconds: 300

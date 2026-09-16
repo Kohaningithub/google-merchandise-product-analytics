@@ -1,0 +1,11 @@
+-- Mutually exclusive partitions within each dimension; do not sum across dimensions.
+SELECT session_date AS metric_date, d.dimension, COALESCE(d.segment,'unknown') AS segment,
+ COUNT(*) AS sessions, COUNTIF(purchase_event) AS purchase_sessions,
+ COUNTIF(view_ts IS NOT NULL) AS viewed, COUNTIF(cart_ts IS NOT NULL) AS cart,
+ COUNTIF(checkout_ts IS NOT NULL) AS checkout, COUNTIF(purchase_ts IS NOT NULL) AS purchased,
+ SUM(revenue_usd) AS revenue_usd, SUM(transactions) AS transactions
+FROM {{ ref('int_sessions') }} s,
+UNNEST([STRUCT('device' AS dimension,device AS segment),STRUCT('country',country),
+STRUCT('source_medium',CONCAT(COALESCE(source,'unknown'),' / ',COALESCE(medium,'unknown'))),
+STRUCT('visitor_type',visitor_type)]) d
+GROUP BY metric_date, dimension, segment

@@ -1,0 +1,28 @@
+WITH calendar AS (SELECT d AS metric_date FROM UNNEST(GENERATE_DATE_ARRAY(DATE '2020-11-01',DATE '2021-01-31')) d),
+users AS (
+ SELECT event_date AS metric_date, COUNT(DISTINCT IF(valid_user,user_pseudo_id,NULL)) AS users,
+ COUNT(DISTINCT IF(valid_user AND event_name='purchase',user_pseudo_id,NULL)) AS purchase_users
+ FROM {{ ref('stg_events') }} GROUP BY metric_date
+), sessions AS (
+ SELECT session_date AS metric_date, COUNT(*) AS sessions, COUNTIF(purchase_event) AS purchase_sessions,
+ COUNTIF(viewed_item) AS product_view_sessions, COUNTIF(added_cart) AS cart_sessions,
+ COUNTIF(began_checkout) AS checkout_sessions,
+ COUNTIF(checkout_ts IS NOT NULL) AS ordered_checkout_sessions,
+ COUNTIF(purchase_ts IS NOT NULL) AS ordered_purchase_sessions
+ FROM {{ ref('int_sessions') }} GROUP BY metric_date
+), money AS (
+ SELECT purchase_date AS metric_date, COUNT(*) AS transactions, SUM(revenue_usd) AS revenue_usd,
+ COUNTIF(revenue_usd IS NULL) AS missing_revenue_transactions
+ FROM {{ ref('fct_purchases') }} GROUP BY metric_date
+)
+SELECT c.metric_date, COALESCE(u.users,0) AS users, COALESCE(u.purchase_users,0) AS purchase_users,
+ s.* EXCEPT(metric_date), COALESCE(m.transactions,0) AS transactions,
+ IF(m.transactions IS NULL,0,m.revenue_usd) AS revenue_usd,
+ COALESCE(m.missing_revenue_transactions,0) AS missing_revenue_transactions,
+ SAFE_DIVIDE(u.purchase_users,u.users) AS user_conversion,
+ SAFE_DIVIDE(s.purchase_sessions,s.sessions) AS session_conversion,
+ SAFE_DIVIDE(IF(m.transactions IS NULL,0,m.revenue_usd),u.users) AS revenue_per_user,
+ SAFE_DIVIDE(m.revenue_usd,m.transactions) AS average_order_value,
+ SAFE_DIVIDE(s.ordered_purchase_sessions,s.ordered_checkout_sessions) AS checkout_completion
+FROM calendar c LEFT JOIN users u USING(metric_date) LEFT JOIN sessions s USING(metric_date)
+LEFT JOIN money m USING(metric_date)

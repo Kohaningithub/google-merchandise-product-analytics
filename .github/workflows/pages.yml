@@ -1,0 +1,41 @@
+name: Publish case study
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -e ".[dev]"
+      - run: python scripts/sync_dbt.py --check
+      - run: python -m src.pipeline site
+      - run: python -m pytest -q
+      - run: python -m ruff check src tests scripts airflow
+      - run: mkdir -p dist && cp site/index.html site/styles.css site/app.js site/report.json dist/ && find site -maxdepth 1 \( -name '*.svg' -o -name '*.csv' \) -exec cp {} dist/ \;
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

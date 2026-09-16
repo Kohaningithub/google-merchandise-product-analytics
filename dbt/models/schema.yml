@@ -1,0 +1,37 @@
+version: 2
+models:
+- name: int_sessions
+  columns:
+  - name: session_id
+    data_tests:
+    - unique
+    - not_null
+- name: int_users
+  columns:
+  - name: user_pseudo_id
+    data_tests:
+    - unique
+    - not_null
+- name: fct_purchases
+  columns:
+  - name: transaction_id
+    data_tests:
+    - unique
+    - not_null
+- name: mart_daily_product_metrics
+  columns:
+  - name: metric_date
+    data_tests:
+    - unique
+    - not_null
+- name: mart_retention
+  columns:
+  - name: horizon
+    data_tests:
+    - accepted_values:
+        values:
+        - 1
+        - 7
+        - 14
+        - 30
+        quote: false
