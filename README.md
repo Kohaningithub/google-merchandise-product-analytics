@@ -42,6 +42,16 @@ flowchart LR
   G --> H[Python diagnosis and power]
   H --> I[Aggregate JSON / CSV / SVG]
   I --> J[Static case study]
+  B --> K[First-view feature mart]
+  K --> L[Feature quality gate]
+  L --> M[Logistic + histogram boosting]
+  M --> N[Temporal evaluation + calibration]
+  N --> O[Segment diagnostics + weekly health]
+  O --> P[BigQuery results + local model report]
+  Q[Manual Airflow replay] -.-> B
+  Q -.-> G
+  Q -.-> L
+  Q -.-> M
 ```
 
 **Stack:** BigQuery Standard SQL; pandas; SciPy/statsmodels; real dbt project generated from canonical SQL; Airflow 3 TaskFlow DAG; pytest; Ruff; GitHub Actions; static HTML/CSS with progressive enhancement.
@@ -108,7 +118,40 @@ Canonical transformations live in `sql/`; `python scripts/sync_dbt.py` generates
 
 Airflow DAG: `airflow/dags/product_analytics_pipeline.py`, targeting Airflow 3.x. Install this package in the scheduler/worker environment and copy the DAG into its DAG folder. Use a persistent shared project/output directory on a single-host setup; distributed workers need shared storage. This example intentionally does not pass local files through XCom or pretend a shared filesystem exists in a distributed deployment. `schedule=None`, bounded retries, `max_active_runs=1`, and manual historical replay are intentional. Runtime scheduler execution has not been claimed from a syntax check.
 
-## Tests and publication
+## Production Data Science Extension
+
+The existing product analytics is preserved. A separate first-product-view
+conversion workflow now adds BigQuery/dbt features, logistic regression and
+histogram gradient boosting, chronological validation, sigmoid calibration,
+segment diagnostics and weekly model health. The original Airflow DAG now accepts
+date windows and an optional model branch; replay outputs use isolated datasets
+and local directories with overwrite semantics.
+
+**Verification boundary:** the modeling lifecycle and leakage/rerun contracts pass
+local synthetic tests. Real GA4 model metrics and a Linux Airflow execution are
+still pending credentials/runtime access on this desktop. The earlier verified
+BigQuery analytics results above are not evidence of model execution. No model
+scores are published until the real workflow runs.
+
+Train: **November 2–December 14, 2020**. Validation: **December 15–31** (calibration
+fit December 15–23; model selection December 24–31). Final test: **January 1–30,
+2021**. No future events or user/session identifiers enter the feature matrix.
+
+```powershell
+python -m pip install -e ".[dev,ml]"
+python -m src.replay estimate --start-date 2021-01-15 --end-date 2021-01-21
+# After reviewing the scan estimate:
+python -m src.replay all --start-date 2021-01-15 --end-date 2021-01-21
+# Full-window training requires its own estimate first:
+python -m src.replay estimate
+python -m src.replay all --include-model
+```
+
+[Prediction/leakage contract](docs/model-contract.md) ·
+[Operations, replay and runtime verification](docs/model-operations.md) ·
+[Initial audit](docs/ds-audit.md) · [Current execution evidence](docs/execution-evidence.md).
+
+## Existing analytics tests and publication
 
 Tests cover censoring boundaries, zero denominators, power monotonicity, past-only detection, incomplete revenue, exact decomposition including entering/exiting segments, canonical dbt drift, BigQuery parsing, site provenance contracts, and DAG syntax. This run passed the warehouse quality gate and all dbt tests against the real BigQuery tables. The dated [dbt validation output](data/published/dbt-validation.json) records those results; Python tests also reconstruct the committed analytical artifacts.
 

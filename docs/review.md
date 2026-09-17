@@ -1,5 +1,9 @@
 # Candidate-style review and execution status
 
+This review records the earlier analytics execution. The uncommitted DS extension
+has its own [current execution evidence](execution-evidence.md); it must not inherit
+these historical warehouse/runtime claims without fresh verification.
+
 ## Implemented
 
 * SQL: bounded raw scans; nested arrays and structs; conditional aggregates; earliest-event dimensions; window functions / QUALIFY; transaction deduplication; sequential funnel; date-censored cohorts; safe ratios; standalone lag/rolling and product-ranking queries.

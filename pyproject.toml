@@ -11,6 +11,7 @@ dependencies = ["pandas>=2.2,<4", "scipy>=1.14,<2", "statsmodels>=0.14,<1", "goo
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "ruff>=0.9,<1", "sqlglot>=30,<31", "duckdb>=1.2,<2"]
 dbt = ["dbt-bigquery>=1.9,<2"]
+ml = ["scikit-learn>=1.6,<1.8", "matplotlib>=3.9,<4", "joblib>=1.4,<2"]
 
 [tool.setuptools]
 packages = ["src"]

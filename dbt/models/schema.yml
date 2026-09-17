@@ -24,6 +24,12 @@ models:
     data_tests:
     - unique
     - not_null
+- name: mart_conversion_features
+  columns:
+  - name: session_key
+    data_tests:
+    - unique
+    - not_null
 - name: mart_retention
   columns:
   - name: horizon

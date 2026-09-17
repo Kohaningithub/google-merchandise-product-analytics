@@ -3,7 +3,7 @@
 import hashlib
 import json
 
-from .config import EXPORTS, ROOT
+from .config import EXPORTS, ROOT, date_window
 
 
 def load(name):
@@ -19,8 +19,9 @@ def validate_exports():
             raise ValueError(f"Empty required export: {name}")
     daily = load("mart_daily_product_metrics")
     dates = [row["metric_date"] for row in daily]
-    if len(set(dates)) != 92 or min(dates) != "2020-11-01" or max(dates) != "2021-01-31":
-        raise ValueError("Daily calendar must contain all 92 source dates")
+    a, b = date_window()
+    if len(dates) != (b-a).days + 1 or len(set(dates)) != len(dates) or min(dates) != str(a) or max(dates) != str(b):
+        raise ValueError("Daily calendar must contain each requested source date exactly once")
     for row in daily:
         for numerator, denominator in [
             ("purchase_users", "users"),

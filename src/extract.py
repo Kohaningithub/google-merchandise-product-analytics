@@ -8,24 +8,31 @@ from datetime import UTC, datetime
 
 from jinja2 import Environment, StrictUndefined
 
-from .config import EXPORTS, MODELS, ROOT, warehouse
+from .config import CODE_ROOT, EXPORTS, MODELS, ROOT, date_window, warehouse
 
 LOG = logging.getLogger(__name__)
 
 
 def model_path(name):
-    matches = list((ROOT / "sql").glob(f"**/{name}.sql"))
+    matches = list((CODE_ROOT / "sql").glob(f"**/{name}.sql"))
     if len(matches) != 1:
         raise ValueError(f"Expected one canonical SQL file for {name}")
     return matches[0]
 
 
-def render(name, project, dataset):
-    return (
+def render(name, project, dataset, start=None, end=None):
+    a, b = date_window(start, end)
+    sql = (
         Environment(undefined=StrictUndefined)
         .from_string(model_path(name).read_text(encoding="utf-8"))
-        .render(ref=lambda model: f"`{project}.{dataset}.{model}`")
+        .render(ref=lambda model: f"`{project}.{dataset}.{model}`",
+                var=lambda key, default=None: {"start_date": str(a), "end_date": str(b)}.get(key, default))
     )
+    # Preserve canonical historical SQL and its published hashes.
+    return (sql.replace("20201101", a.strftime("%Y%m%d"))
+            .replace("20210131", b.strftime("%Y%m%d"))
+            .replace("2020-11-01", str(a)).replace("2021-01-31", str(b))
+            .replace("ABS(92-COUNT", f"ABS({(b-a).days + 1}-COUNT"))
 
 
 class Warehouse:
@@ -43,6 +50,7 @@ class Warehouse:
         limit = int(os.getenv("BQ_MAX_BYTES", "5000000000"))
         dry = self.client.query(sql, job_config=bq.QueryJobConfig(dry_run=True, use_query_cache=False))
         estimate = dry.total_bytes_processed or 0
+        LOG.info("Dry run %s: %s bytes (cap %s)", name, estimate, limit)
         if estimate > limit:
             raise ValueError(f"{name}: {estimate:,} bytes exceeds per-query cap {limit:,}")
         config = bq.QueryJobConfig(maximum_bytes_billed=limit, use_query_cache=True)

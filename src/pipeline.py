@@ -10,7 +10,7 @@ import pandas as pd
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from .anomaly_detection import detect
-from .config import END, ROOT, SOURCE, START
+from .config import CODE_ROOT, END, ROOT, SOURCE, START, date_window
 from .experimentation import power_plan
 from .extract import Warehouse
 from .funnels import segments
@@ -38,9 +38,10 @@ def analyze():
     eligible_rows = [r for r in experiment if r["stage"] == chosen_stage]
     users = sum(r["eligible_users"] for r in eligible_rows)
     converted = sum(r["converted_users"] for r in eligible_rows)
-    design = power_plan(converted, users, users / 91)
+    a, b = date_window()
+    design = power_plan(converted, users, users / (b-a).days)
     design["converted_users"] = converted
-    design["baseline_days"] = 91
+    design["baseline_days"] = (b-a).days
     design["observed_bottleneck"] = bottleneck
     hypotheses = {
         2: ("Product view to cart", "Clarify availability and the add-to-cart action on product pages."),
@@ -57,8 +58,8 @@ def analyze():
         status="verified",
         generated_at=datetime.now(UTC).isoformat(),
         source=SOURCE,
-        start=START,
-        end=END,
+        start=a.strftime("%Y%m%d"),
+        end=b.strftime("%Y%m%d"),
         provenance=provenance(),
         metrics=METRICS,
         daily=daily,
@@ -96,8 +97,8 @@ def analyze():
             latest_jobs[job["name"]] = job
         summary["warehouse_jobs"] = latest_jobs
     summary["sql_provenance"] = {
-        str(path.relative_to(ROOT)).replace("\\", "/"): file_digest(path)
-        for path in sorted((ROOT / "sql").rglob("*.sql"))
+        str(path.relative_to(CODE_ROOT)).replace("\\", "/"): file_digest(path)
+        for path in sorted((CODE_ROOT / "sql").rglob("*.sql"))
     }
     write_json(ROOT / "data/published/report.json", summary)
     # CSV exports are aggregate-only and reproduce the chart inputs.

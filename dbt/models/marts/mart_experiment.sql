@@ -11,7 +11,7 @@ WITH transitions AS (
 ), eligible AS (
  SELECT s.user_pseudo_id,s.session_id,s.session_date,x.stage,x.outcome_event,x.exposure_ts
  FROM {{ ref('int_sessions') }} s JOIN exposures x USING(session_id)
- WHERE s.session_end_date<DATE '2021-01-31'
+ WHERE s.session_end_date<DATE '{{ var("end_date", "2021-01-31") }}'
  QUALIFY ROW_NUMBER() OVER(PARTITION BY user_pseudo_id,stage ORDER BY exposure_ts,session_id)=1
 ), outcomes AS (
  SELECT s.user_pseudo_id,s.stage,s.session_date,COUNT(e.event_timestamp)>0 AS converted

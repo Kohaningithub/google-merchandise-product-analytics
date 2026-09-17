@@ -15,3 +15,6 @@ dist/
 *.log
 
 dbt/.user.yml
+artifacts/
+.airflow/
+.venv-airflow/

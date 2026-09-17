@@ -20,7 +20,7 @@ UNION ALL SELECT 'transaction_reconciliation',ABS(
  AND transaction_id IS NOT NULL AND TRIM(transaction_id) NOT IN ('','<Other>','(not set)','(direct)')
  GROUP BY transaction_id HAVING COUNT(DISTINCT user_pseudo_id)<=1 AND COUNT(DISTINCT revenue_usd)<=1))
  -(SELECT COUNT(*) FROM {{ ref('fct_purchases') }}))
-UNION ALL SELECT 'cohort_bounds',COUNTIF(first_observed_date<DATE '2020-11-01' OR first_observed_date>DATE '2021-01-31') FROM {{ ref('int_users') }}
+UNION ALL SELECT 'cohort_bounds',COUNTIF(first_observed_date<DATE '{{ var("start_date", "2020-11-01") }}' OR first_observed_date>DATE '{{ var("end_date", "2021-01-31") }}') FROM {{ ref('int_users') }}
 UNION ALL SELECT 'retention_subset',COUNTIF(returned_users>eligible_users OR eligible_users<=0) FROM {{ ref('mart_retention') }}
 UNION ALL SELECT 'critical_event_fields',COUNTIF(event_date IS NULL OR event_timestamp IS NULL OR event_name IS NULL) FROM {{ ref('stg_events') }}
 UNION ALL SELECT 'cohort_activity_order',COUNTIF(e.event_date<u.first_observed_date)
@@ -31,6 +31,6 @@ UNION ALL SELECT 'daily_session_reconciliation',ABS(
  (SELECT SUM(sessions) FROM {{ ref('mart_daily_product_metrics') }})-(SELECT COUNT(*) FROM {{ ref('int_sessions') }}))
 UNION ALL SELECT 'daily_transaction_reconciliation',ABS(
  (SELECT SUM(transactions) FROM {{ ref('mart_daily_product_metrics') }})-(SELECT COUNT(*) FROM {{ ref('fct_purchases') }}))
-UNION ALL SELECT 'observed_date_coverage',ABS(92-COUNT(DISTINCT event_date)) FROM {{ ref('stg_events') }}
+UNION ALL SELECT 'observed_date_coverage',ABS((DATE_DIFF(DATE '{{ var("end_date", "2021-01-31") }}', DATE '{{ var("start_date", "2020-11-01") }}', DAY)+1)-COUNT(DISTINCT event_date)) FROM {{ ref('stg_events') }}
 
 ) SELECT * FROM checks WHERE failures>0

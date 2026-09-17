@@ -4,7 +4,7 @@ WITH activity AS (
  SELECT DISTINCT user_pseudo_id,event_date FROM {{ ref('stg_events') }} WHERE valid_user
 ), eligible AS (
  SELECT u.*, horizon FROM {{ ref('int_users') }} u CROSS JOIN UNNEST([1,7,14,30]) horizon
- WHERE DATE_ADD(first_observed_date,INTERVAL horizon DAY)<=DATE '2021-01-31'
+ WHERE DATE_ADD(first_observed_date,INTERVAL horizon DAY)<=DATE '{{ var("end_date", "2021-01-31") }}'
 ), expanded AS (
  SELECT e.*, d.dimension, COALESCE(d.segment,'unknown') AS segment,
  a.user_pseudo_id IS NOT NULL AS returned

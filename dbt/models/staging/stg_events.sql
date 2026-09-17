@@ -20,7 +20,7 @@ WITH flat AS (
     TO_HEX(SHA256(TO_JSON_STRING(STRUCT(event_timestamp, event_name, user_pseudo_id,
       event_params, ecommerce)))) AS event_fingerprint
   FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`
-  WHERE _TABLE_SUFFIX BETWEEN '20201101' AND '20210131'
+  WHERE _TABLE_SUFFIX BETWEEN '{{ var("start_date", "2020-11-01") | replace("-", "") }}' AND '{{ var("end_date", "2021-01-31") | replace("-", "") }}'
 )
 SELECT *, CASE WHEN user_pseudo_id IS NOT NULL AND user_pseudo_id NOT IN ('<Other>', '(not set)')
   AND ga_session_id IS NOT NULL THEN TO_JSON_STRING(STRUCT(user_pseudo_id, ga_session_id)) END AS session_id,
