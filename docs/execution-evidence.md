@@ -390,3 +390,219 @@ only updates this evidence document; untracked new files are excluded from diff 
  src/validation.py                               |  7 ++--
  22 files changed, 174 insertions(+), 38 deletions(-)
 ```
+
+
+## Windows restoration and preservation — 2026-09-17
+
+Restored a separate clone under `%USERPROFILE%/Documents/Projects/google-merchandise-product-analytics`.
+The pre-existing portfolio checkout and its uncommitted presentation edits were left untouched.
+Both new annotated rollback tags were pushed and their peeled targets verified against origin:
+
+- `public-product-analytics-v1`: `1dafe6f3075891ab56141dfb5874803a2e4e5b94`.
+- `pre-real-execution-v1`: `0cd26126d4c1be43e9b2fef1a4776e6834261814`.
+
+The public commit is an ancestor of main and remains its tip. The feature branch
+remains separate at the checkpoint above. Neither tag was moved. No branch push,
+new code commit, merge, workflow dispatch or deployment occurred. The clone was
+clean after switching to `feature/ds-modeling-airflow` and a fast-forward-only pull.
+Only this evidence document was subsequently edited.
+
+### Environment actually observed
+
+- Windows; Python 3.14.3 on the current PATH.
+- Google Cloud SDK 585.0.0 is installed in the normal per-user SDK location,
+  but its bin directory is absent from this process PATH. BigQuery CLI 2.1.38.
+- CLI account is signed in; configured project is `project-a1c7b526-d5b8-4e0c-9f1`.
+- BigQuery API is enabled, verified with the CLI service listing. Actual source
+  access through the Python runner has not yet been verified on this clone.
+- No explicit ADC environment configuration; conventional ADC file absent.
+  `google.auth.default()` returned `DefaultCredentialsError`. No secrets printed.
+- WSL status and distribution listing both report WSL is not installed.
+  No native Windows Airflow installation attempted. Docker not found on PATH.
+- dbt-core, dbt-bigquery and scikit-learn are absent from this Python environment.
+  The prior Python 3.12 checkpoint results above belong to the prior machine.
+
+### Checks and estimates attempted
+
+- `python -m pytest -q`: **27 passed, 1 skipped** (13.79 seconds).
+  The modeling test module is skipped because scikit-learn is absent; this is
+  not a complete 32-test ML verification.
+- `python -m ruff check src tests scripts airflow`: passed.
+- `python scripts/sync_dbt.py --check`: passed.
+- dbt parse and Airflow verification: not run here; required runtimes absent.
+- Small estimate: `python -m src.replay estimate --start-date 2021-01-15 --end-date 2021-01-21`.
+- Full estimate: `python -m src.replay estimate --start-date 2020-11-01 --end-date 2021-01-31 --include-model`.
+
+Both estimates were attempted with the configured project explicitly supplied via
+`GOOGLE_CLOUD_PROJECT`. Both stopped at ADC discovery before a BigQuery query.
+Bytes, GiB/TiB, costs and dominant scans are unavailable, not zero. Inspection also
+confirms the existing `estimate` stage estimates only stg_events source scanning;
+it does not estimate downstream materialized-table scans or model execution.
+A source-only estimate must not be represented as a full-workflow cost estimate.
+
+No real replay, repeat/idempotency check, feature extraction, model fit, evaluation,
+calibration, segment/health/drift output, or Airflow run occurred in this follow-up.
+No new model metrics or public claims were generated. Existing analysis, modeling
+implementation, temporal splits, README and site remain unchanged.
+
+### First authenticated small replay attempt — 2026-09-17
+
+ADC refresh, the configured project and a zero-byte BigQuery dry run succeeded.
+The replay used `BQ_MAX_BYTES=5368709120` (exactly 5 GiB). Every warehouse query
+performed its own dry run before execution; all 18 estimates were below the cap.
+The largest was `stg_events` at 138,847,135 bytes (0.129 GiB).
+
+The warehouse, validation, export, analysis and monitoring stages completed for
+2021-01-15 through 2021-01-21. All 17 warehouse quality checks returned zero
+failures. Aggregate outputs contain 7 daily rows, 8 funnel rows, 246 retention
+rows, 763 segment rows and 18 experiment rows. The source audit observed 297,357
+events, 22,801 users and 27,395 sessions. No row-level identifiers were reported.
+
+The run stopped at final site rendering. This short window generated zero anomaly
+flags and therefore no device investigation case; the current recruiter template
+unconditionally selects a device case and raised a Jinja `UndefinedError`. This
+is a short-window publication compatibility bug after successful warehouse work,
+not a BigQuery or quality-gate failure. Per the execution stop conditions, the
+identical replay, full feature build and model lifecycle were not started.
+
+Session usage through the stop point: estimated and processed bytes were both
+531,557,467 (0.495051 GiB); billed bytes were 670,040,064 (0.624023 GiB). This is
+well below the 200 GiB internal ceiling. The query log records job IDs, dry-run
+estimates, actual processed/billed bytes, cache status and SQL hashes. No service
+beyond the already-enabled BigQuery API was enabled.
+
+### Continued replay, idempotency and real model execution — 2026-09-17
+
+The short-window publication assumption was corrected without changing analysis:
+when no device anomaly case exists, the template renders a neutral no-flag state.
+The original full-window result remains unchanged. The first replay then completed
+through site generation and the full local checks passed.
+
+The same 2021-01-15 through 2021-01-21 replay was executed again with the exact
+5 GiB cap. All nine warehouse tables retained identical row counts and full-table
+fingerprints after `WRITE_TRUNCATE`: stg_events 297,357 / -5309162196314258893;
+fct_purchases 272 / 3969245514017424322; int_sessions 27,395 /
+-5996788293651334876; int_users 22,801 / -1123140342108037465;
+mart_daily_product_metrics 7 / 1162578661996687369; mart_funnel 8 /
+-7325095425782887940; mart_retention 246 / 2698181718582952445;
+mart_segments 763 / -6336609104176835938; mart_experiment 18 /
+-6271436215799732386. Each fingerprint query was dry-run and capped first.
+
+The full 2020-11-01 through 2021-01-31 source estimate was 2,076,000,935 bytes
+(1.933 GiB). The full analytics, feature, training, evaluation, calibration,
+segment, health, persistence and local model-report workflow completed. Its 21
+queries processed 8,816,474,964 bytes (8.210982 GiB) and billed 8,887,730,176
+bytes (8.277344 GiB). The largest query remained stg_events at 1.933 GiB; every
+query dry-run estimate was below 5 GiB. BigQuery DataFrame uploads replaced result
+tables and did not scan the GA4 source.
+
+BigQuery table metadata confirms 75,414 feature rows, 67,224 prediction rows
+(22,408 test sessions × three candidates), 3 evaluation rows, 375 segment rows
+and 5 weekly health rows in the isolated full-window replay dataset. Metadata API
+checks do not execute queries or add processed bytes.
+
+The real feature mart contains 75,414 eligible sessions. Temporal splits and
+prevalence: train 40,993 / 6.7938%; calibration 8,406 / 6.9117%; selection 3,607 /
+4.5744%; final test 22,408 / 4.6100%. Leakage and split gates passed. Validation
+selected uncalibrated histogram boosting by the predefined log-loss rule: selection
+log loss 0.166808 and PR-AUC 0.155028, versus logistic 0.170200 / 0.119204 and
+sigmoid boosting 0.167394 / 0.155028. Final-test results were evaluated only after
+selection:
+
+| Candidate | ROC-AUC | PR-AUC | Log loss | Brier | ECE | Decile lift | Quintile lift |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Logistic | 0.732620 | 0.112063 | 0.172704 | 0.042605 | 0.010828 | 2.8265 | 2.5990 |
+| Boosting | 0.750267 | 0.117913 | 0.172800 | 0.043137 | 0.020539 | 2.8458 | 2.5119 |
+| Boosting + sigmoid | 0.750267 | 0.117913 | 0.172851 | 0.042962 | 0.020668 | 2.8458 | 2.5119 |
+
+The selected boosting model's ten equal-frequency final-test calibration buckets
+each contain about 2,240 sessions. Mean prediction versus observed conversion runs
+from 0.006514 / 0.003124 in the lowest bucket to 0.205406 / 0.131191 in the highest;
+the model overpredicts in this later period. Calibration integrity checks passed.
+
+Supported selected-model segment results are descriptive. Device prevalence was
+desktop 4.3745% (n=13,030), mobile 4.9236% (n=8,835), tablet 5.1565% (n=543).
+New-proxy prevalence was 2.5678% (n=15,967) versus returning-proxy 9.6724%
+(n=6,441). Supported source groups ranged from 3.8877% for `<Other>` (n=6,019)
+to 9.3117% for `(data deleted)` (n=1,482); these are predictive associations,
+not effects. Fourteen countries, five sources, six media, three devices and two
+visitor-proxy groups met the implemented support rule.
+
+Five weekly health windows were generated. Selected-model PR-AUC ranged from
+0.063049 to 0.153723; ROC-AUC 0.673836 to 0.786352; Brier 0.034689 to 0.048028;
+log loss 0.152876 to 0.182179; ECE 0.011521 to 0.036210. Categorical unseen rates
+were zero. The largest PSI, day_of_week=4.581741 in the initial three-day partial
+week, reflects its incomplete weekday composition and is not treated as a live
+incident. Later notable PSI values include seconds_to_view 0.364071 and
+unique_products 0.193833 in the final partial week.
+
+Cumulative project-session query usage, including both small replays, both
+fingerprint audits and the full model run, is 10,121,244,136 processed bytes
+(9.426143 GiB) and 10,617,880,576 billed bytes (9.888672 GiB). Dry-run-only
+estimates and the zero-byte access check add no processed bytes. Usage remains far
+below the 200 GiB ceiling. No reservations, BigQuery ML, Vertex AI, Dataflow,
+Pub/Sub, Composer or other GCP service was enabled.
+
+Python 3.14.3 with scikit-learn 1.7.2 completed 32 pytest tests; Ruff, dependency
+checking, dbt synchronization and replay site generation passed.
+
+### Real Airflow runtime — 2026-09-17
+
+Ubuntu 24.04 is installed under WSL2 with Linux user `kchen`. Airflow 3.1.7 runs
+in the isolated environment `/home/kchen/.venvs/ga4-airflow`; the runtime copy of
+the repository is `/home/kchen/google-merchandise-product-analytics`. Application
+Default Credentials from the Windows gcloud installation work inside WSL, and
+the active billing/quota project is `project-a1c7b526-d5b8-4e0c-9f1`.
+
+DagBag loaded `product_analytics_pipeline` without import errors and parsed all 16
+expected tasks. The typed params are `start_date`, `end_date` and `include_model`.
+Every task has two retries and a two-minute retry delay. Dependency assertions
+confirmed that model training is gated by `validate_model_features`, while final
+publication waits for both anomaly diagnosis and model-report publication.
+
+Two real Airflow small-window runs used 2021-01-15 through 2021-01-21 with
+`include_model=false`:
+
+| Run ID | DAG status | Analytics tasks | Model tasks | Publication |
+|---|---|---:|---:|---|
+| `manual__2026-09-17T13:54:31.031658+00:00` | success | 7 success | 9 skipped | success |
+| `manual__2026-09-17T13:56:02.165931+00:00` | success | 7 success | 9 skipped | success |
+
+All 17 warehouse quality gates passed in both runs. The repeated run produced
+identical row counts and full-table fingerprints for all nine warehouse tables:
+stg_events 297,357 / -5309162196314258893; fct_purchases 272 /
+3969245514017424322; int_sessions 27,395 / -5996788293651335876; int_users
+22,801 / -1123140342108037465; mart_daily_product_metrics 7 /
+1162578661996687369; mart_funnel 8 / -7325095425782887940; mart_retention 246 /
+2698181718582952445; mart_segments 763 / -6336609104176835938; and
+mart_experiment 18 / -6271436215799732386. This is observed Airflow replay
+idempotency evidence, including successful artifact publication on both runs.
+
+The full real Airflow run used 2020-11-01 through 2021-01-31 with
+`include_model=true`. Run `manual__2026-09-17T13:57:45.110265+00:00` finished
+`success` in 153.317 seconds. All 16 tasks finished `success`: the seven analytics
+tasks plus feature build and validation, training, evaluation, calibration,
+segment diagnostics, model health, result persistence and model-report
+publication. Analytics quality gates, leakage/split gates and calibration
+integrity checks passed. Final publication succeeded. The resulting table
+signatures were 4,295,584 staged events, 4,436 purchases, 360,129 sessions,
+270,154 users, 75,414 model-feature rows, 67,224 prediction rows and five model
+health rows; these agree with the independently verified full-window artifacts.
+
+Every Airflow BigQuery statement was dry-run first and executed with
+`maximum_bytes_billed=5368709120`. The two small runs plus their fingerprint
+audits processed 1,304,769,172 bytes (1.215161 GiB) and billed 1,730,150,400
+bytes (1.611328 GiB); their largest query was 138,847,135 bytes. The full Airflow
+run plus its fingerprint audit processed 10,581,602,695 bytes (9.854885 GiB) and
+billed 10,726,932,480 bytes (9.990234 GiB); its largest individual query was
+2,076,000,935 bytes (1.933 GiB). All queries stayed below the 5 GiB cap.
+
+Cumulative project-session usage after Windows and Airflow verification is
+22,007,616,003 processed bytes (20.496190 GiB) and 23,074,963,456 billed bytes
+(21.490234 GiB), well below the 200 GiB safety ceiling. No reservations,
+BigQuery ML, Vertex AI, Dataflow, Pub/Sub, Composer or other GCP service was
+enabled.
+
+Final Linux runtime verification completed 32 pytest tests; Ruff, dbt canonical
+sync and `pip check` passed. A final parse-only DagBag check again reported
+Airflow 3.1.7, `parsed: true` and all 16 expected tasks.

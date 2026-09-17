@@ -1,0 +1,146 @@
+{
+  "code_sha256": "9d95d4f067bcd4535de5c5fe987a0dc3e702bcc86c2340706e7391d5fe84ac1e",
+  "feature_sha256": "2fbe9ddc842d772e83cb53cbce6777b47f9c1ea91dd3088fd8835ea770dcf515",
+  "features": [
+    "device",
+    "country",
+    "source",
+    "medium",
+    "visitor_type",
+    "day_of_week",
+    "hour_utc",
+    "early_events",
+    "early_page_views",
+    "early_searches",
+    "seconds_to_view",
+    "unique_products",
+    "category_diversity"
+  ],
+  "git_commit": "0cd26126d4c1be43e9b2fef1a4776e6834261814",
+  "model_version": "6c6081f363508953",
+  "parameters": {
+    "boosting": {
+      "categorical_features": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "class_weight": null,
+      "early_stopping": false,
+      "interaction_cst": null,
+      "l2_regularization": 10,
+      "learning_rate": 0.05,
+      "loss": "log_loss",
+      "max_bins": 255,
+      "max_depth": null,
+      "max_features": 1.0,
+      "max_iter": 150,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 20,
+      "monotonic_cst": null,
+      "n_iter_no_change": 10,
+      "random_state": 42,
+      "scoring": "loss",
+      "tol": 1e-07,
+      "validation_fraction": 0.1,
+      "verbose": 0,
+      "warm_start": false
+    },
+    "logistic": {
+      "C": 1,
+      "class_weight": null,
+      "dual": false,
+      "fit_intercept": true,
+      "intercept_scaling": 1,
+      "l1_ratio": null,
+      "max_iter": 1000,
+      "multi_class": "deprecated",
+      "n_jobs": null,
+      "penalty": "l2",
+      "random_state": 42,
+      "solver": "lbfgs",
+      "tol": 0.0001,
+      "verbose": 0,
+      "warm_start": false
+    }
+  },
+  "seed": 42,
+  "selected": "boosting",
+  "selection_metrics": {
+    "boosting": {
+      "brier_score": 0.04166368633185128,
+      "calibration_error": 0.01784254161316897,
+      "conversion_rate": 0.04574438591627391,
+      "log_loss": 0.1668078455822914,
+      "mean_prediction": 0.06358692752944288,
+      "metric_status": "reported",
+      "pr_auc": 0.1550282332493613,
+      "roc_auc": 0.7715581145563712,
+      "row_count": 3607,
+      "top_decile_fraction": 0.10008317161075686,
+      "top_decile_lift": 3.5727860320658107,
+      "top_quintile_fraction": 0.20016634322151372,
+      "top_quintile_lift": 2.7855619911021576
+    },
+    "boosting_sigmoid": {
+      "brier_score": 0.04164034676899427,
+      "calibration_error": 0.01829099529877455,
+      "conversion_rate": 0.04574438591627391,
+      "log_loss": 0.1673941519530181,
+      "mean_prediction": 0.06403538121504845,
+      "metric_status": "reported",
+      "pr_auc": 0.1550282332493613,
+      "roc_auc": 0.7715581145563712,
+      "row_count": 3607,
+      "top_decile_fraction": 0.10008317161075686,
+      "top_decile_lift": 3.5727860320658107,
+      "top_quintile_fraction": 0.20016634322151372,
+      "top_quintile_lift": 2.7855619911021576
+    },
+    "logistic": {
+      "brier_score": 0.04203291358117062,
+      "calibration_error": 0.015869889346587722,
+      "conversion_rate": 0.04574438591627391,
+      "log_loss": 0.17020002533500675,
+      "mean_prediction": 0.060616030874480004,
+      "metric_status": "reported",
+      "pr_auc": 0.11920433764328947,
+      "roc_auc": 0.749896994347895,
+      "row_count": 3607,
+      "top_decile_fraction": 0.10008317161075686,
+      "top_decile_lift": 3.148896163854613,
+      "top_quintile_fraction": 0.20016634322151372,
+      "top_quintile_lift": 2.8461176865609
+    }
+  },
+  "sklearn_version": "1.7.2",
+  "trained_at": "2026-09-17T13:18:44.225662+00:00",
+  "windows": {
+    "calibration": {
+      "conversion_rate": 0.06911729716868903,
+      "end": "2020-12-23",
+      "row_count": 8406,
+      "start": "2020-12-15"
+    },
+    "selection": {
+      "conversion_rate": 0.04574438591627391,
+      "end": "2020-12-31",
+      "row_count": 3607,
+      "start": "2020-12-24"
+    },
+    "test": {
+      "conversion_rate": 0.04609960728311317,
+      "end": "2021-01-30",
+      "row_count": 22408,
+      "start": "2021-01-01"
+    },
+    "train": {
+      "conversion_rate": 0.06793842851218501,
+      "end": "2020-12-14",
+      "row_count": 40993,
+      "start": "2020-11-02"
+    }
+  }
+}

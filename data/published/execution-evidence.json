@@ -1,0 +1,40 @@
+{
+  "status": "verified",
+  "observed_at": "2026-09-17",
+  "airflow_version": "3.1.7",
+  "dag_id": "product_analytics_pipeline",
+  "task_count": 16,
+  "full_run": {
+    "run_id": "manual__2026-09-17T13:57:45.110265+00:00",
+    "start_date": "2020-11-01",
+    "end_date": "2021-01-31",
+    "include_model": true,
+    "status": "success",
+    "duration_seconds": 153.317,
+    "successful_tasks": 16
+  },
+  "small_replays": {
+    "start_date": "2021-01-15",
+    "end_date": "2021-01-21",
+    "include_model": false,
+    "successful_runs": 2,
+    "analytics_tasks_per_run": 7,
+    "skipped_model_tasks_per_run": 9,
+    "identical_row_counts": true,
+    "identical_table_fingerprints": true
+  },
+  "quality": {
+    "warehouse_gates": "passed",
+    "leakage_and_split_gates": "passed",
+    "calibration_integrity": "passed",
+    "dry_run_before_query": true,
+    "maximum_bytes_billed": 5368709120
+  },
+  "tables": {
+    "staged_events": 4295584,
+    "sessions": 360129,
+    "feature_rows": 75414,
+    "prediction_rows": 67224,
+    "health_windows": 5
+  }
+}

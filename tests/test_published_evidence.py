@@ -84,7 +84,21 @@ def test_website_figures_csvs_and_readme_share_the_report(tmp_path):
         )
     env = Environment(loader=FileSystemLoader(ROOT / "site"), autoescape=select_autoescape(["html"]))
     page = (ROOT / "site/index.html").read_text(encoding="utf-8")
-    assert page == env.get_template("template.html").render(r=r, verified=True)
+    model_dir = ROOT / "data/published/model"
+    model = {
+        "metrics": json.loads((model_dir / "model_metrics.json").read_text(encoding="utf-8")),
+        "metadata": json.loads((model_dir / "metadata.json").read_text(encoding="utf-8")),
+        "calibration": pd.read_csv(model_dir / "model_calibration.csv").to_dict("records"),
+        "health": pd.read_csv(model_dir / "model_health.csv").to_dict("records"),
+        "drift": pd.read_csv(model_dir / "model_drift.csv").to_dict("records"),
+        "segments": pd.read_csv(model_dir / "model_segment_metrics.csv").to_dict("records"),
+    }
+    execution = json.loads(
+        (ROOT / "data/published/execution-evidence.json").read_text(encoding="utf-8-sig")
+    )
+    assert page == env.get_template("template.html").render(
+        r=r, verified=True, m=model, execution=execution
+    )
     assert "Awaiting data access" not in page
     assert "No numerical findings" not in page
     readme = (ROOT / "README.md").read_text(encoding="utf-8")

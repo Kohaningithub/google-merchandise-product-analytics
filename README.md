@@ -1,9 +1,12 @@
-# Product Analytics & Experimentation Platform
-### Google Merchandise Store · BigQuery / SQL / dbt / Airflow
+# Product Analytics & Data Science on GA4
 
-**Business problem:** identify where ecommerce journeys lose users, distinguish audience changes from changes within segments, and design a defensible next product experiment.
+A production-oriented case study using the Google Merchandise Store public GA4 export to diagnose product behavior, design an experiment, model session conversion, evaluate calibration and model health, and replay the workflow through Airflow.
 
-**Execution status:** the full BigQuery pipeline has run against the real source, all warehouse quality gates passed, and the site publishes observed results. The prospective experiment has **not** been run.
+**Stack:** BigQuery · SQL · dbt · Python · scikit-learn · Airflow
+
+**Verified execution:** 4.30M staged events, 360,129 sessions, 75,414 model-feature rows, and a successful 16-task Airflow 3.1.7 run. The product experiment is a prospective design; no treatment result is claimed.
+
+**[View the case study](https://kohaningithub.github.io/google-merchandise-product-analytics/)** · [Execution evidence](docs/execution-evidence.md) · [Metric contracts](docs/data-dictionary.md) · [Model contract](docs/model-contract.md)
 
 <!-- BEGIN GENERATED FINDINGS -->
 
@@ -23,154 +26,124 @@ Generated from [report.json](data/published/report.json); source aggregates and 
 
 <!-- END GENERATED FINDINGS -->
 
-**[Case study](https://kohaningithub.github.io/google-merchandise-product-analytics/)** · [SQL](sql) · [Metric/data contracts](docs/data-dictionary.md) · [Experiment protocol](docs/experiment-design.md) · [Review & limitations](docs/review.md)
-
 ## Architecture
 
 ```mermaid
 flowchart LR
-  A[GA4 public events] --> B[stg_events]
-  B --> C[fct_purchases]
-  B --> D[int_sessions]
-  C --> D
-  D --> E[int_users]
-  B --> E
-  E --> F[Product marts]
-  D --> F
-  C --> F
-  F --> G[Quality gate]
-  G --> H[Python diagnosis and power]
-  H --> I[Aggregate JSON / CSV / SVG]
-  I --> J[Static case study]
-  B --> K[First-view feature mart]
-  K --> L[Feature quality gate]
-  L --> M[Logistic + histogram boosting]
-  M --> N[Temporal evaluation + calibration]
-  N --> O[Segment diagnostics + weekly health]
-  O --> P[BigQuery results + local model report]
-  Q[Manual Airflow replay] -.-> B
-  Q -.-> G
-  Q -.-> L
-  Q -.-> M
+  A[GA4 BigQuery] --> B[SQL + dbt warehouse]
+  B --> C[Analytics marts]
+  B --> D[First-view feature mart]
+  C --> E[Funnel · retention · diagnosis · monitoring · experiment sizing]
+  D --> F[Feature validation · training · temporal evaluation]
+  F --> G[Calibration · segments · weekly model health]
+  H[Airflow manual replay] -. orchestration, retries, gates .-> B
+  E --> I[Generated case study]
+  G --> I
 ```
 
-**Stack:** BigQuery Standard SQL; pandas; SciPy/statsmodels; real dbt project generated from canonical SQL; Airflow 3 TaskFlow DAG; pytest; Ruff; GitHub Actions; static HTML/CSS with progressive enhancement.
+Transformations have explicit grains from events to sessions, users, accepted transactions, analytics marts, and the model feature mart. Airflow coordinates the existing SQL and Python tasks; it does not contain the training logic.
 
-![Case-study preview](reports/figures/site-preview.png)
+## Product analytics
 
-## Reproduce without BigQuery
+The analytics layer answers where the journey loses users, whether major segments differ, whether a historical conversion change is meaningful, and whether that change reflects traffic mix or behavior within segments.
 
-Python 3.11+ (3.12 recommended for the optional dbt/Airflow ecosystem). From this directory:
+- **Funnel:** strict ordered timestamps at session grain; unordered event reach is separate.
+- **Retention:** exact D1/D7/D14/D30 return with per-horizon right censoring and frozen initial attributes.
+- **Diagnosis:** matched-weekday comparison and symmetric mix/within-rate decomposition. Results are observational.
+- **Monitoring:** trailing robust baselines exclude the current day and open an investigation rather than assert an incident.
+- **Experiment:** the measured product-view → cart baseline sizes a user-randomized prospective test.
+
+## Modeling question and prediction contract
+
+**Question:** using information available at the first product view, estimate the probability that the session eventually converts.
+
+Features cover device and acquisition context, visitor state, temporal context, early engagement, and early product interaction. Purchase outcomes, events after the first product view, and raw identifiers cannot enter the estimator. See the [prediction and leakage contract](docs/model-contract.md).
+
+## Temporal validation
+
+| Window | Dates | Sessions | Conversion |
+|---|---|---:|---:|
+| Train | 2020-11-02 → 2020-12-14 | 40,993 | 6.7938% |
+| Calibration | 2020-12-15 → 2020-12-23 | 8,406 | 6.9117% |
+| Selection | 2020-12-24 → 2020-12-31 | 3,607 | 4.5744% |
+| Final test | 2021-01-01 → 2021-01-30 | 22,408 | 4.6100% |
+
+The predefined selection-window log-loss rule selected uncalibrated histogram gradient boosting. The final test remained untouched until selection was complete.
+
+## Final-test model results
+
+| Model | ROC-AUC | PR-AUC | Log loss | Brier | ECE | Decile lift |
+|---|---:|---:|---:|---:|---:|---:|
+| Logistic regression | 0.732620 | 0.112063 | 0.172704 | 0.042605 | 0.010828 | 2.8265× |
+| Histogram boosting — selected | 0.750267 | 0.117913 | 0.172800 | 0.043137 | 0.020539 | 2.8458× |
+| Boosting + sigmoid | 0.750267 | 0.117913 | 0.172851 | 0.042962 | 0.020668 | 2.8458× |
+
+Boosting ranks sessions better, while logistic regression is better calibrated on the later test period by Brier score and ECE. This tradeoff is why the project reports discrimination, probability quality, segment behavior, and stability together. Metrics are preserved in [model_metrics.json](data/published/model/model_metrics.json).
+
+## Calibration and model health
+
+The selected boosting model overpredicts in the later period: its lowest equal-frequency bucket averages 0.65% predicted versus 0.31% observed, while the highest averages 20.54% predicted versus 13.12% observed. This is evidence of temporal calibration degradation requiring monitoring, not a model failure.
+
+Five weekly windows show PR-AUC from 0.063049 to 0.153723, Brier from 0.034689 to 0.048028, and ECE from 0.011521 to 0.036210. Categorical unseen rates are zero. The large initial partial-week day-of-week PSI is not treated as an incident; later distribution changes are recorded for investigation.
+
+Supported device and visitor-proxy results remain descriptive and predictive. They are not causal treatment effects.
+
+## Airflow orchestration and real execution
+
+Airflow 3.1.7 loaded `product_analytics_pipeline` with 16 tasks, typed `start_date`, `end_date`, and `include_model` parameters, two retries, a two-minute retry delay, validation gates, and final publication dependencies.
+
+Two real 2021-01-15 → 2021-01-21 replays succeeded with the model branch disabled. The second produced identical row counts and full-table fingerprints. The full 2020-11-01 → 2021-01-31 model DAG completed all 16 tasks successfully in 153.317 seconds.
+
+Every BigQuery statement was dry-run before execution and capped at 5 GiB per query. Detailed task states, fingerprints, query usage, and validation results are in [execution-evidence.md](docs/execution-evidence.md).
+
+## Reproduce
+
+### Local analytics and published artifacts
 
 ```sh
-python -m pip install -e ".[dev]"
+python -m pip install -e ".[dev,ml]"
 python scripts/sync_dbt.py --check
 python -m src.pipeline site
-python -m pytest
+python -m pytest -q
 python -m ruff check src tests scripts airflow
 python -m http.server 8080 --directory site
 ```
 
-Open `http://localhost:8080`. The committed report and aggregate query outputs render verified results without cloud credentials. Synthetic fixtures live only in tests and temporary test directories; they are not website inputs. Raw event/user/session rows are not downloaded.
+Open `http://localhost:8080`. Committed aggregate and model artifacts render without cloud credentials. Synthetic fixtures are confined to tests.
 
-## One-time BigQuery access
-
-1. Create or select your own Google Cloud project, enable BigQuery, and use the [BigQuery sandbox](https://docs.cloud.google.com/bigquery/docs/sandbox) if you do not want billing. You need permission to create jobs and create/write the destination dataset. Access to a public dataset does not remove the requirement for a query project.
-2. Install the [Google Cloud CLI](https://cloud.google.com/sdk/docs/install), then authenticate locally. Never add credentials to Git.
+### Bounded real BigQuery replay
 
 ```powershell
-# From the parent folder of your cloned repository:
-cd google-merchandise-product-analytics
-python -m pip install -e ".[dev]"
 gcloud auth application-default login
-$env:GOOGLE_CLOUD_PROJECT="project-a1c7b526-d5b8-4e0c-9f1"
+$env:GOOGLE_CLOUD_PROJECT="your-project-id"
 $env:BQ_DATASET="product_analytics"
 $env:BQ_LOCATION="US"
-$env:BQ_MAX_BYTES="5000000000"
-python -m src.pipeline all
-```
-
-On Bash use `export GOOGLE_CLOUD_PROJECT=YOUR_ACTUAL_PROJECT_ID` and the equivalent optional variables. `.env.example` documents configuration; the runner reads environment variables, not the file automatically. The [official ADC instructions](https://docs.cloud.google.com/bigquery/docs/authentication) describe local authentication.
-
-The full command executes: **audit → models → validate → export → analyze → monitor → site**. Alternatively run each stage with `python -m src.pipeline STAGE`, or use `make audit`, `make models`, `make validate`, `make export`, `make analyze`, `make monitor`, `make site`, `make test`. Models require audit/staging first; analyze requires validated exports. Review audit warnings even when release-blocking tests pass.
-
-### Cost controls
-
-The raw scan always uses `_TABLE_SUFFIX BETWEEN '20201101' AND '20210131'` and only selects needed fields. Subsequent queries read materialized models, not the wildcard source. Every query gets a dry run and a default 5 GB per-query maximum; this is a limit, **not a measured scan estimate** and not a total budget. The driver records estimates, processed/billed bytes, cache status, job ID and SQL hash in `data/processed/query_log.jsonl`. Actual estimates and processed bytes for the latest successful queries are preserved in `report.json` under `warehouse_jobs`; SQL hashes and aggregate-input hashes are also preserved. Hashes normalize text to UTF-8 with LF line endings for cross-platform reproducibility. Inspect cumulative usage; free-tier sufficiency is not guaranteed for unlimited reruns. Sandbox tables expire, so rerun models when necessary. The driver sets a 60-day default expiry on its own destination dataset.
-
-## Source and audit
-
-Exact source: **`bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`**, **2020-11-01 through 2021-01-31**. Google's [dataset documentation](https://developers.google.com/analytics/bigquery/web-ecommerce-demo-dataset) warns that the data is obfuscated, includes placeholders, and has limited internal consistency. It cannot be compared directly to the GA demo account.
-
-`audit` records actual schema, date bounds, event names, user/session coverage, purchase and transaction issues, USD availability, device/country/acquisition values, repeated fingerprints, and required ecommerce event coverage. Missing IDs are visible exclusions. Known placeholders do not become valid user or transaction keys. Conflicting transaction IDs are quarantined before deduplication; the quality gate verifies that none entered the accepted fact table and reconciles the accepted subset. `transaction_diagnosis.json` retains the exclusion accounting.
-
-## Analytical decisions worth inspecting
-
-* **Funnel:** strict ordered timestamps at session grain; unordered user event reach is separate. Sample thresholds and Wilson intervals accompany device/country/source/proxy segments.
-* **Retention:** exact D1/D7/D14/D30 return, per-user censoring, first-observed cohorts, and dimensions frozen before future activity. Cross-day first-session behavior is separately excluded.
-* **Monitoring:** trailing 28 observations, at least 21 valid history values, 3.5 robust-score threshold, minimum rate denominators, no current/future baseline contamination. Zero MAD skips a flag; missing revenue suppresses revenue monitoring.
-* **Diagnosis:** a real flag triggers matched-weekday comparison, device/country/source/proxy contributions, stage transitions, and symmetric mix/within-rate decomposition. Revenue additionally separates volume from revenue/session. Effects are descriptive and reconcile mathematically; they are not causal attributions.
-* **Experiment:** select an observed bottleneck, align eligibility to one user per transition, and calculate prospective 80%/90% power scenarios. The MDE is a planning assumption, not a predicted outcome.
-
-## dbt and Airflow
-
-Canonical transformations live in `sql/`; `python scripts/sync_dbt.py` generates `dbt/models/` and singular tests. CI checks for drift. To use dbt instead of the direct materialization runner, install `.[dbt]`, set your environment, then run `dbt build --project-dir dbt --profiles-dir dbt`. Schema tests include unique/not-null keys and accepted retention horizons; singular SQL checks cover conflicts, chronology and reconciliation. This does not create Python exports; run the direct `validate`, `export`, `analyze`, `monitor`, `site` steps afterward. Run `audit` first to persist audit inputs.
-
-Airflow DAG: `airflow/dags/product_analytics_pipeline.py`, targeting Airflow 3.x. Install this package in the scheduler/worker environment and copy the DAG into its DAG folder. Use a persistent shared project/output directory on a single-host setup; distributed workers need shared storage. This example intentionally does not pass local files through XCom or pretend a shared filesystem exists in a distributed deployment. `schedule=None`, bounded retries, `max_active_runs=1`, and manual historical replay are intentional. Runtime scheduler execution has not been claimed from a syntax check.
-
-## Production Data Science Extension
-
-The existing product analytics is preserved. A separate first-product-view
-conversion workflow now adds BigQuery/dbt features, logistic regression and
-histogram gradient boosting, chronological validation, sigmoid calibration,
-segment diagnostics and weekly model health. The original Airflow DAG now accepts
-date windows and an optional model branch; replay outputs use isolated datasets
-and local directories with overwrite semantics.
-
-**Verification boundary:** the modeling lifecycle and leakage/rerun contracts pass
-local synthetic tests. Real GA4 model metrics and a Linux Airflow execution are
-still pending credentials/runtime access on this desktop. The earlier verified
-BigQuery analytics results above are not evidence of model execution. No model
-scores are published until the real workflow runs.
-
-Train: **November 2–December 14, 2020**. Validation: **December 15–31** (calibration
-fit December 15–23; model selection December 24–31). Final test: **January 1–30,
-2021**. No future events or user/session identifiers enter the feature matrix.
-
-```powershell
-python -m pip install -e ".[dev,ml]"
+$env:BQ_MAX_BYTES="5368709120"
 python -m src.replay estimate --start-date 2021-01-15 --end-date 2021-01-21
-# After reviewing the scan estimate:
 python -m src.replay all --start-date 2021-01-15 --end-date 2021-01-21
-# Full-window training requires its own estimate first:
-python -m src.replay estimate
-python -m src.replay all --include-model
 ```
 
-[Prediction/leakage contract](docs/model-contract.md) ·
-[Operations, replay and runtime verification](docs/model-operations.md) ·
-[Initial audit](docs/ds-audit.md) · [Current execution evidence](docs/execution-evidence.md).
+Review the dry-run estimate before the bounded replay. Estimate the full window separately before running `python -m src.replay all --include-model`.
 
-## Existing analytics tests and publication
+### Airflow on WSL/Linux
 
-Tests cover censoring boundaries, zero denominators, power monotonicity, past-only detection, incomplete revenue, exact decomposition including entering/exiting segments, canonical dbt drift, BigQuery parsing, site provenance contracts, and DAG syntax. This run passed the warehouse quality gate and all dbt tests against the real BigQuery tables. The dated [dbt validation output](data/published/dbt-validation.json) records those results; Python tests also reconstruct the committed analytical artifacts.
+Create an isolated Python 3.12 environment, install the Airflow 3.1.7 constraints and this package, set `AIRFLOW_HOME`, `GOOGLE_APPLICATION_CREDENTIALS`, `GOOGLE_CLOUD_PROJECT`, and `BQ_MAX_BYTES`, then run:
 
-The repository workflows test this project and publish only this case study to GitHub Pages. The original private portfolio repository remains private. Site values render from `data/published/report.json`; the JSON and aggregate CSVs are downloadable. Figures are generated from those same records. Analytical figures are absent when data is absent.
-
-The completed run preserves schema, audit, quality and aggregate inputs under `data/published/inputs/`, plus generated findings, prospective power design, historical alerts, diagnosis and charts. Tests reconstruct the published findings, experiment baseline, contribution analysis, CSVs and SVGs from those input snapshots. The January investigation includes a two-recent-Friday sensitivity comparison because the longer matched-weekday baseline includes holidays.
-
-## Authentication used for this execution
-
-The CLI was signed in but the conventional ADC file was absent. The run used the existing CLI-generated credential file through `GOOGLE_APPLICATION_CREDENTIALS`; no credentials were copied or committed. To reuse the same local sign-in in PowerShell:
-
-```powershell
-$gcloud = Join-Path $env:LOCALAPPDATA 'Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd'
-$account = (& $gcloud auth list --filter=status:ACTIVE --format='value(account)').Trim()
-$env:GOOGLE_APPLICATION_CREDENTIALS = Join-Path $env:APPDATA "gcloud\legacy_credentials\$account\adc.json"
-$env:GOOGLE_CLOUD_PROJECT = 'project-a1c7b526-d5b8-4e0c-9f1'
-python -m src.pipeline all
-python -m pytest -q
-python -m ruff check src tests scripts airflow
+```sh
+python scripts/verify_airflow.py
+python scripts/verify_airflow.py --execute --start-date 2021-01-15 --end-date 2021-01-21
 ```
 
-Other users should authenticate with their own project and the standard ADC command above. A local BigQuery run generates results; commit the refreshed published aggregates and site files to `main` to trigger Pages deployment.
+Operational details are in [model-operations.md](docs/model-operations.md).
+
+## Limitations
+
+- The public GA4 export is finite, historical, obfuscated, and internally imperfect.
+- There is no live traffic, production model serving, or automatic retraining deployment.
+- Repeat-user and session observations are not fully independent.
+- Feature availability is constrained by the first-view prediction contract.
+- The selected model shows calibration drift in the final period.
+- Pseudonymous browser IDs do not establish durable people-level or cross-device identity.
+- Predictive and segment relationships are observational; the proposed experiment has no treatment result.
+
+Raw event, user, and session rows are not downloaded or published. Generated JSON, CSV, SVG, and report files preserve the public-facing evidence trail.

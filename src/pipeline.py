@@ -224,12 +224,36 @@ def site():
             raise ValueError("Run monitoring before publishing")
         for name, function in [("funnel", funnel_svg), ("retention", retention_svg)]:
             function(report[name], ROOT / "site" / f"{name}.svg")
+    model_dir = ROOT / "data/published/model"
+    model = None
+    execution = None
+    if (model_dir / "model_metrics.json").exists() and (model_dir / "metadata.json").exists():
+        model = {
+            "metrics": json.loads((model_dir / "model_metrics.json").read_text(encoding="utf-8")),
+            "metadata": json.loads((model_dir / "metadata.json").read_text(encoding="utf-8")),
+            "calibration": pd.read_csv(model_dir / "model_calibration.csv").to_dict("records"),
+            "health": pd.read_csv(model_dir / "model_health.csv").to_dict("records"),
+            "drift": pd.read_csv(model_dir / "model_drift.csv").to_dict("records"),
+            "segments": pd.read_csv(model_dir / "model_segment_metrics.csv").to_dict("records"),
+        }
+    execution_path = ROOT / "data/published/execution-evidence.json"
+    if execution_path.exists():
+        execution = json.loads(execution_path.read_text(encoding="utf-8-sig"))
     env = Environment(loader=FileSystemLoader(ROOT / "site"), autoescape=select_autoescape(["html"]))
-    html = env.get_template("template.html").render(r=report, verified=report["status"] == "verified")
+    html = env.get_template("template.html").render(
+        r=report,
+        verified=report["status"] == "verified",
+        m=model,
+        execution=execution,
+    )
     (ROOT / "site/index.html").write_text(html, encoding="utf-8")
     shutil.copyfile(path, ROOT / "site/report.json")
     for csv in (ROOT / "data/published").glob("*.csv"):
         shutil.copyfile(csv, ROOT / "site" / csv.name)
+    if model_dir.exists():
+        shutil.copytree(model_dir, ROOT / "site/model", dirs_exist_ok=True)
+    if execution_path.exists():
+        shutil.copyfile(execution_path, ROOT / "site/execution-evidence.json")
     readme = ROOT / "README.md"
     if report["status"] == "verified" and readme.exists():
         text = readme.read_text(encoding="utf-8")
